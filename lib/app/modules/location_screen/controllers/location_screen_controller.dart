@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:food_planner_app/constants/app_constant.dart';
 import 'package:food_planner_app/constants/sizeConstant.dart';
 import 'package:food_planner_app/db/db_helper.dart';
@@ -115,13 +116,27 @@ class LocationScreenController extends GetxController {
     UserModels(name: "SE7".obs, location: "Kundal".obs),
     UserModels(name: "SE8".obs, location: "Kundal".obs),
   ]);
+  RxList<UserModels> userList = RxList<UserModels>([]);
+
   RxBool isFromLocation = false.obs;
   @override
-  void onInit() {
+  void onInit() async {
     if (!isNullEmptyOrFalse(Get.arguments)) {
       isFromLocation.value = Get.arguments[ArgumentConstant.isFromLocation];
     }
+    await getUserList(context: Get.context!);
     super.onInit();
+  }
+
+  Future<void> getUserList({required BuildContext context}) async {
+    userList.clear();
+    List<Map<String, dynamic>> tasks = await getIt<DBHelper>().queryUser();
+    tasks.forEach((e) {
+      int id = e["id"];
+      RxString name = e['name'].toString().obs;
+      RxString location = e['location'].toString().obs;
+      userList.add(UserModels(id: id, name: name, location: location));
+    });
   }
 
   @override
