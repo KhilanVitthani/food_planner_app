@@ -13,7 +13,10 @@ import '../../../../utilities/progress_dialog_utils.dart';
 class UpavasListViewController extends GetxController {
   RxString selectedDate = "".obs;
   RxList<UserModels> userList = RxList<UserModels>([]);
+  RxList<UserModels> locationsSelectedUser = RxList<UserModels>([]);
   RxList<SelectedModels> attendanceList = RxList<SelectedModels>([]);
+  RxList<SelectedModels> locationsAttendanceList = RxList<SelectedModels>([]);
+  RxList<SelectedModels> tempList = RxList<SelectedModels>([]);
   RxBool hasData = false.obs;
   RxList<String> dropdownListLocation = <String>[
     "Kundal",
@@ -32,9 +35,28 @@ class UpavasListViewController extends GetxController {
     selectedDate.value =
         DateFormat('dd/MM/yyyy').format(DateTime.now()).toString();
     await getUserList(context: Get.context!);
-
     await getSelectedList(context: Get.context!);
+    tempData();
     super.onInit();
+  }
+
+  tempData() {
+    tempList.clear();
+    locationsAttendanceList.clear();
+    locationsSelectedUser.value = userList
+        .where((element) => element.location.value == dropdownlocation.value)
+        .toList();
+    for (int i = 0; i < attendanceList.length; i++) {
+      if (locationsSelectedUser
+          .map((element) => element.id)
+          .toList()
+          .contains(attendanceList[i].id)) {
+        locationsAttendanceList.add(attendanceList[i]);
+      }
+    }
+    tempList.clear();
+    tempList.value =
+        locationsAttendanceList.where((p0) => p0.status == 2).toList();
   }
 
   Future<void> getUserList({required BuildContext context}) async {

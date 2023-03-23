@@ -136,7 +136,7 @@ class UpavasListViewView extends GetView<UpavasListViewController> {
                                 onChanged: (String? value) {
                                   // This is called when the user selects an item.
                                   controller.dropdownlocation.value = value!;
-                                  // controller.data();
+                                  controller.tempData();
                                 },
                                 items: controller.dropdownListLocation
                                     .map<DropdownMenuItem<String>>(
@@ -171,10 +171,7 @@ class UpavasListViewView extends GetView<UpavasListViewController> {
                                 width: 5,
                               ),
                               Text(
-                                controller.attendanceList
-                                    .where((p0) => p0.status == 2)
-                                    .length
-                                    .toString(),
+                                controller.tempList.length.toString(),
                               ),
                               SizedBox(
                                 width: 10,
@@ -194,9 +191,7 @@ class UpavasListViewView extends GetView<UpavasListViewController> {
                                         crossAxisCount: 5,
                                         crossAxisSpacing: 5,
                                         mainAxisSpacing: 5),
-                                itemCount: controller.attendanceList
-                                    .where((p0) => p0.status == 2)
-                                    .length,
+                                itemCount: controller.tempList.length,
                                 itemBuilder: (context, index) {
                                   return Obx(() {
                                     return Container(
@@ -205,10 +200,7 @@ class UpavasListViewView extends GetView<UpavasListViewController> {
                                             color: Colors.red),
                                         child: Center(
                                             child: Text(
-                                          controller.attendanceList
-                                              .where((p0) => p0.status == 2)
-                                              .toList()[index]
-                                              .id
+                                          controller.tempList[index].id
                                               .toString(),
                                           style: TextStyle(
                                               color: Colors.white,
