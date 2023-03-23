@@ -163,45 +163,41 @@ class HomeView extends GetView<HomeController> {
                               ),
                             ],
                           ),
-                          // Row(
-                          //   crossAxisAlignment: CrossAxisAlignment.end,
-                          //   mainAxisAlignment: MainAxisAlignment.end,
-                          //   children: [
-                          //     Padding(
-                          //       padding: const EdgeInsets.only(
-                          //           right: 8.0, left: 8, bottom: 8),
-                          //       child: Row(
-                          //         children: [
-                          //           Text("Active",
-                          //               style: TextStyle(fontSize: 15)),
-                          //           SizedBox(
-                          //             width: 5,
-                          //           ),
-                          //           CircleAvatar(
-                          //               radius: 5,
-                          //               backgroundColor:
-                          //                   appTheme.SelectedColor),
-                          //           SizedBox(
-                          //             width: 5,
-                          //           ),
-                          //           Text(
-                          //             controller.userList
-                          //                 .where((element) {
-                          //                   return element.isSelected.value ==
-                          //                       0;
-                          //                 })
-                          //                 .toList()
-                          //                 .length
-                          //                 .toString(),
-                          //           ),
-                          //           SizedBox(
-                          //             width: 10,
-                          //           ),
-                          //         ],
-                          //       ),
-                          //     ),
-                          //   ],
-                          // ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    right: 8.0, left: 8, bottom: 8),
+                                child: Row(
+                                  children: [
+                                    Text("Active",
+                                        style: TextStyle(fontSize: 15)),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    CircleAvatar(
+                                        radius: 5,
+                                        backgroundColor:
+                                            appTheme.SelectedColor),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      controller.attendanceList
+                                          .where((p0) => p0.status == 1)
+                                          .length
+                                          .toString(),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                           Expanded(
                             child: Padding(
                               padding: EdgeInsets.symmetric(horizontal: 5.0),
@@ -224,51 +220,7 @@ class HomeView extends GetView<HomeController> {
                                           .length,
                                       itemBuilder: (context, index) {
                                         return InkWell(
-                                          // onTap: () async {
-                                          //   if ((controller.userList
-                                          //           .firstWhere((e) =>
-                                          //               e.Name.value ==
-                                          //               controller.userList
-                                          //                   .where((element) =>
-                                          //                       element.location
-                                          //                           .value ==
-                                          //                       controller
-                                          //                           .dropdownlocation
-                                          //                           .value)
-                                          //                   .toList()[index])
-                                          //           .isSelected <=
-                                          //       1)) {
-                                          //     controller.userList
-                                          //         .where((element) =>
-                                          //             element.location.value ==
-                                          //             controller
-                                          //                 .dropdownlocation
-                                          //                 .value)
-                                          //         .toList()[index]
-                                          //         .isSelected++;
-                                          //   } else {
-                                          //     controller.userList
-                                          //         .where((element) =>
-                                          //             element.location.value ==
-                                          //             controller
-                                          //                 .dropdownlocation
-                                          //                 .value)
-                                          //         .toList()[index]
-                                          //         .isSelected
-                                          //         .value = 0;
-                                          //   }
-                                          //   box.write(
-                                          //       controller.selectedDate.value +
-                                          //           controller
-                                          //               .dropdownValue.value,
-                                          //       jsonEncode(controller
-                                          //           .userList
-                                          //           .map((e) => e.toJson())
-                                          //           .toList()));
-                                          // },
                                           onTap: () {
-                                            // getIt<CustomDialogs>()
-                                            //     .showCircularDialog(context);
                                             if (controller
                                                 .attendanceList.isNotEmpty) {
                                               int mId = controller.userList
