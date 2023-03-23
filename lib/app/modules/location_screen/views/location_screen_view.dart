@@ -4,6 +4,7 @@ import 'package:food_planner_app/main.dart';
 import 'package:get/get.dart';
 
 import '../../../../constants/app_constant.dart';
+import '../../../../constants/color_constant.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/location_screen_controller.dart';
 
@@ -15,6 +16,17 @@ class LocationScreenView extends GetView<LocationScreenController> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
+          leading: (controller.isFromLocation == true)
+              ? InkWell(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: Icon(
+                    Icons.arrow_back,
+                    color: appTheme.primaryTheme,
+                  ),
+                )
+              : SizedBox(),
           title: Text(ArgumentConstant.chooeslocation,
               style: TextStyle(color: Colors.black)),
           centerTitle: true,

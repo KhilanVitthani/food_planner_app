@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '../../../../constants/app_constant.dart';
 import '../../../../constants/color_constant.dart';
+import '../../../routes/app_pages.dart';
 import '../../home/views/home_view.dart';
 import '../controllers/main_screen_controller.dart';
 
@@ -20,7 +21,10 @@ class MainScreenView extends GetWidget<MainScreenController> {
           appBar: AppBar(
             actions: [
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed(Routes.LOCATION_SCREEN,
+                        arguments: {ArgumentConstant.isFromLocation: true});
+                  },
                   icon: Icon(
                     Icons.settings,
                     color: appTheme.primaryTheme,

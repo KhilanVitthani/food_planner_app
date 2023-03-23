@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../../constants/color_constant.dart';
 import '../../../../constants/sizeConstant.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/upavas_list_view_controller.dart';
 
 class UpavasListViewView extends GetView<UpavasListViewController> {
@@ -220,7 +221,7 @@ class UpavasListViewView extends GetView<UpavasListViewController> {
                     bottom: 35,
                     child: InkWell(
                       onTap: () {
-                        // Get.toNamed(Routes.ADD_UPVAS);
+                        Get.toNamed(Routes.ADD_UPVAS);
                       },
                       child: Container(
                         decoration: BoxDecoration(

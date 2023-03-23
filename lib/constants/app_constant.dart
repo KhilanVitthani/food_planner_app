@@ -8,5 +8,6 @@ class ArgumentConstant {
   static String upvaslist = "ઉપવાસ";
   static String chooeslocation = "સ્થાન પસંદ કરો";
   static String Location = "Location";
+  static String isFromLocation = "isFromLocation";
   static String isFirstTime = "isFirstTime";
 }

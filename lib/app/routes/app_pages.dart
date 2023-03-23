@@ -1,8 +1,10 @@
-import 'package:food_planner_app/constants/sizeConstant.dart';
 import 'package:get/get.dart';
 
 import '../../constants/app_constant.dart';
+import '../../constants/sizeConstant.dart';
 import '../../main.dart';
+import '../modules/add_upvas/bindings/add_upvas_binding.dart';
+import '../modules/add_upvas/views/add_upvas_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/location_screen/bindings/location_screen_binding.dart';
@@ -42,6 +44,11 @@ class AppPages {
       name: _Paths.UPAVAS_LIST_VIEW,
       page: () => const UpavasListViewView(),
       binding: UpavasListViewBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_UPVAS,
+      page: () => const AddUpvasView(),
+      binding: AddUpvasBinding(),
     ),
   ];
 }

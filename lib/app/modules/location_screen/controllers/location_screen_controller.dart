@@ -1,3 +1,5 @@
+import 'package:food_planner_app/constants/app_constant.dart';
+import 'package:food_planner_app/constants/sizeConstant.dart';
 import 'package:food_planner_app/db/db_helper.dart';
 import 'package:food_planner_app/models/user.dart';
 import 'package:get/get.dart';
@@ -113,8 +115,12 @@ class LocationScreenController extends GetxController {
     UserModels(name: "SE7".obs, location: "Kundal".obs),
     UserModels(name: "SE8".obs, location: "Kundal".obs),
   ]);
+  RxBool isFromLocation = false.obs;
   @override
   void onInit() {
+    if (!isNullEmptyOrFalse(Get.arguments)) {
+      isFromLocation.value = Get.arguments[ArgumentConstant.isFromLocation];
+    }
     super.onInit();
   }
 
