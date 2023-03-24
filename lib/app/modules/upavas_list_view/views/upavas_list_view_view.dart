@@ -183,36 +183,42 @@ class UpavasListViewView extends GetView<UpavasListViewController> {
                       ],
                     ),
                     Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 5.0),
-                        child: (!isNullEmptyOrFalse(controller.attendanceList))
-                            ? GridView.builder(
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 5,
-                                        crossAxisSpacing: 5,
-                                        mainAxisSpacing: 5),
-                                itemCount: controller.tempList.length,
-                                itemBuilder: (context, index) {
-                                  return Obx(() {
-                                    return Container(
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: Colors.red),
-                                        child: Center(
-                                            child: Text(
-                                          controller.tempList[index].id
-                                              .toString(),
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 20),
-                                        )));
-                                  });
-                                },
-                              )
-                            : Center(
-                                child: Text("No Data Found"),
-                              ),
+                      child: SingleChildScrollView(
+                        physics: BouncingScrollPhysics(),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 5.0),
+                          child:
+                              (!isNullEmptyOrFalse(controller.attendanceList))
+                                  ? GridView.builder(
+                                      shrinkWrap: true,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: 5,
+                                              crossAxisSpacing: 5,
+                                              mainAxisSpacing: 5),
+                                      itemCount: controller.tempList.length,
+                                      itemBuilder: (context, index) {
+                                        return Obx(() {
+                                          return Container(
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: Colors.red),
+                                              child: Center(
+                                                  child: Text(
+                                                controller.tempList[index].id
+                                                    .toString(),
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 20),
+                                              )));
+                                        });
+                                      },
+                                    )
+                                  : Center(
+                                      child: Text("No Data Found"),
+                                    ),
+                        ),
                       ),
                     )
                   ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:food_planner_app/constants/sizeConstant.dart';
 import 'package:food_planner_app/models/selected_model.dart';
-import 'package:food_planner_app/utilities/progress_dialog_utils.dart';
 
 import 'package:get/get.dart';
 
@@ -13,6 +13,7 @@ class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    MySize().init(context);
     return GetBuilder<HomeController>(
         init: HomeController(),
         builder: (controller) {
@@ -200,112 +201,194 @@ class HomeView extends GetView<HomeController> {
                             child: Padding(
                               padding: EdgeInsets.symmetric(horizontal: 5.0),
                               child: SingleChildScrollView(
+                                physics: BouncingScrollPhysics(),
                                 child: Column(
                                   children: [
-                                    GridView.builder(
-                                      physics: NeverScrollableScrollPhysics(),
-                                      shrinkWrap: true,
-                                      gridDelegate:
-                                          SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisCount: 5,
-                                              crossAxisSpacing: 5,
-                                              mainAxisSpacing: 5),
-                                      itemCount: controller.userList
-                                          .where((element) =>
-                                              element.location.value ==
-                                              controller.dropdownlocation.value)
-                                          .toList()
-                                          .length,
-                                      itemBuilder: (context, index) {
-                                        return InkWell(
-                                          onTap: () {
-                                            if (controller
-                                                .attendanceList.isNotEmpty) {
-                                              int mId = controller.userList
-                                                  .where((element) =>
-                                                      element.location.value ==
+                                    (controller.userList
+                                            .where((element) =>
+                                                element.location.value ==
+                                                controller
+                                                    .dropdownlocation.value)
+                                            .toList()
+                                            .isEmpty)
+                                        ? Container(
+                                            height: MySize.screenHeight,
+                                            child: Text("No Data Found!"))
+                                        : GridView.builder(
+                                            physics:
+                                                NeverScrollableScrollPhysics(),
+                                            shrinkWrap: true,
+                                            gridDelegate:
+                                                SliverGridDelegateWithFixedCrossAxisCount(
+                                                    crossAxisCount: 5,
+                                                    crossAxisSpacing: 5,
+                                                    mainAxisSpacing: 5),
+                                            itemCount: controller.userList
+                                                .where((element) =>
+                                                    element.location.value ==
+                                                    controller
+                                                        .dropdownlocation.value)
+                                                .toList()
+                                                .length,
+                                            itemBuilder: (context, index) {
+                                              return InkWell(
+                                                onTap: () {
+                                                  if (controller.attendanceList
+                                                      .isNotEmpty) {
+                                                    int mId = controller
+                                                        .userList
+                                                        .where((element) =>
+                                                            element.location
+                                                                .value ==
+                                                            controller
+                                                                .dropdownlocation
+                                                                .value)
+                                                        .toList()[index]
+                                                        .id!;
+                                                    // print("object");
+                                                    bool isPresnt = controller
+                                                        .attendanceList
+                                                        .any((element) =>
+                                                            element.id == mId);
+                                                    if (isPresnt) {
+                                                      SelectedModels
+                                                          selectedData =
+                                                          controller
+                                                              .attendanceList
+                                                              .where((p0) =>
+                                                                  p0.id == mId)
+                                                              .first;
+                                                      if (selectedData.status ==
+                                                          1) {
+                                                        getIt<DBHelper>()
+                                                            .updateTime(
+                                                                id: selectedData
+                                                                    .id,
+                                                                time:
+                                                                    selectedData
+                                                                        .time,
+                                                                date:
+                                                                    selectedData
+                                                                        .date,
+                                                                status: 2.obs);
+                                                      } else if (selectedData
+                                                              .status ==
+                                                          2) {
+                                                        getIt<DBHelper>()
+                                                            .delete(
+                                                                id: selectedData
+                                                                    .id,
+                                                                time:
+                                                                    selectedData
+                                                                        .time,
+                                                                date:
+                                                                    selectedData
+                                                                        .date);
+                                                      } else {
+                                                        getIt<DBHelper>()
+                                                            .update(
+                                                                id: selectedData
+                                                                    .id,
+                                                                status: 1.obs);
+                                                      }
                                                       controller
-                                                          .dropdownlocation
-                                                          .value)
-                                                  .toList()[index]
-                                                  .id!;
-                                              // print("object");
-                                              bool isPresnt = controller
-                                                  .attendanceList
-                                                  .any((element) =>
-                                                      element.id == mId);
-                                              if (isPresnt) {
-                                                SelectedModels selectedData =
-                                                    controller.attendanceList
-                                                        .where((p0) =>
-                                                            p0.id == mId)
-                                                        .first;
-                                                if (selectedData.status == 1) {
-                                                  getIt<DBHelper>().updateTime(
-                                                      id: selectedData.id,
-                                                      time: selectedData.time,
-                                                      date: selectedData.date,
-                                                      status: 2.obs);
-                                                } else if (selectedData
-                                                        .status ==
-                                                    2) {
-                                                  getIt<DBHelper>().delete(
-                                                      id: selectedData.id,
-                                                      time: selectedData.time,
-                                                      date: selectedData.date);
-                                                } else {
-                                                  getIt<DBHelper>().update(
-                                                      id: selectedData.id,
-                                                      status: 1.obs);
-                                                }
-                                                controller.getSelectedList(
-                                                    context: context);
-                                              } else {
-                                                controller.addTask(
-                                                  context: context,
-                                                  task: SelectedModels(
-                                                      id: controller.userList
-                                                          .where((element) =>
-                                                              element.location
-                                                                  .value ==
-                                                              controller
-                                                                  .dropdownlocation
-                                                                  .value)
-                                                          .toList()[index]
-                                                          .id!,
-                                                      status: 1.obs,
-                                                      time: controller
-                                                          .dropdownValue,
-                                                      date: controller
-                                                          .selectedDate),
-                                                );
-                                              }
-                                            } else {
-                                              controller.addTask(
-                                                  task: SelectedModels(
-                                                      id: controller.userList
-                                                          .where((element) =>
-                                                              element.location
-                                                                  .value ==
-                                                              controller
-                                                                  .dropdownlocation
-                                                                  .value)
-                                                          .toList()[index]
-                                                          .id!,
-                                                      status: 1.obs,
-                                                      time: controller
-                                                          .dropdownValue,
-                                                      date: controller
-                                                          .selectedDate),
-                                                  context: context);
-                                            }
-                                          },
-                                          child: Obx(() {
-                                            return Container(
-                                                decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    color: controller.getColor(
-                                                        id: controller.userList
+                                                          .getSelectedList(
+                                                              context: context);
+                                                    } else {
+                                                      controller.addTask(
+                                                        context: context,
+                                                        task: SelectedModels(
+                                                            id: controller
+                                                                .userList
+                                                                .where((element) =>
+                                                                    element
+                                                                        .location
+                                                                        .value ==
+                                                                    controller
+                                                                        .dropdownlocation
+                                                                        .value)
+                                                                .toList()[index]
+                                                                .id!,
+                                                            status: 1.obs,
+                                                            time: controller
+                                                                .dropdownValue,
+                                                            date: controller
+                                                                .selectedDate),
+                                                      );
+                                                    }
+                                                  } else {
+                                                    controller.addTask(
+                                                        task: SelectedModels(
+                                                            id: controller
+                                                                .userList
+                                                                .where((element) =>
+                                                                    element
+                                                                        .location
+                                                                        .value ==
+                                                                    controller
+                                                                        .dropdownlocation
+                                                                        .value)
+                                                                .toList()[index]
+                                                                .id!,
+                                                            status: 1.obs,
+                                                            time: controller
+                                                                .dropdownValue,
+                                                            date: controller
+                                                                .selectedDate),
+                                                        context: context);
+                                                  }
+                                                },
+                                                child: Obx(() {
+                                                  return Container(
+                                                      decoration: BoxDecoration(
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          color: controller.getColor(
+                                                              id: controller
+                                                                  .userList
+                                                                  .where((element) =>
+                                                                      element
+                                                                          .location
+                                                                          .value ==
+                                                                      controller
+                                                                          .dropdownlocation
+                                                                          .value)
+                                                                  .toList()[
+                                                                      index]
+                                                                  .id!)
+                                                          // color: (controller.userList
+                                                          //             .where((element) =>
+                                                          //                 element
+                                                          //                     .location
+                                                          //                     .value ==
+                                                          //                 controller
+                                                          //                     .dropdownlocation
+                                                          //                     .value)
+                                                          //             .toList()[index]
+                                                          //             .isSelected
+                                                          //             .value ==
+                                                          //         0)
+                                                          //     ? appTheme.unSelectedColor
+                                                          //     : (controller.userList
+                                                          //                 .where((element) =>
+                                                          //                     element
+                                                          //                         .location
+                                                          //                         .value ==
+                                                          //                     controller
+                                                          //                         .dropdownlocation
+                                                          //                         .value)
+                                                          //                 .toList()[
+                                                          //                     index]
+                                                          //                 .isSelected
+                                                          //                 .value ==
+                                                          //             1)
+                                                          //         ? appTheme
+                                                          //             .SelectedColor
+                                                          //         : Colors.red,
+                                                          ),
+                                                      child: Center(
+                                                          child: Text(
+                                                        controller.userList
                                                             .where((element) =>
                                                                 element.location
                                                                     .value ==
@@ -313,57 +396,16 @@ class HomeView extends GetView<HomeController> {
                                                                     .dropdownlocation
                                                                     .value)
                                                             .toList()[index]
-                                                            .id!)
-                                                    // color: (controller.userList
-                                                    //             .where((element) =>
-                                                    //                 element
-                                                    //                     .location
-                                                    //                     .value ==
-                                                    //                 controller
-                                                    //                     .dropdownlocation
-                                                    //                     .value)
-                                                    //             .toList()[index]
-                                                    //             .isSelected
-                                                    //             .value ==
-                                                    //         0)
-                                                    //     ? appTheme.unSelectedColor
-                                                    //     : (controller.userList
-                                                    //                 .where((element) =>
-                                                    //                     element
-                                                    //                         .location
-                                                    //                         .value ==
-                                                    //                     controller
-                                                    //                         .dropdownlocation
-                                                    //                         .value)
-                                                    //                 .toList()[
-                                                    //                     index]
-                                                    //                 .isSelected
-                                                    //                 .value ==
-                                                    //             1)
-                                                    //         ? appTheme
-                                                    //             .SelectedColor
-                                                    //         : Colors.red,
-                                                    ),
-                                                child: Center(
-                                                    child: Text(
-                                                  controller.userList
-                                                      .where((element) =>
-                                                          element
-                                                              .location.value ==
-                                                          controller
-                                                              .dropdownlocation
-                                                              .value)
-                                                      .toList()[index]
-                                                      .name
-                                                      .toString(),
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 20),
-                                                )));
-                                          }),
-                                        );
-                                      },
-                                    ),
+                                                            .name
+                                                            .toString(),
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 20),
+                                                      )));
+                                                }),
+                                              );
+                                            },
+                                          ),
                                   ],
                                 ),
                               ),

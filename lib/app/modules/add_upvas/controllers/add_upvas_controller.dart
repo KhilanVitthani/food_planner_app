@@ -29,10 +29,12 @@ class AddUpvasController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    selectedDate.value =
-        DateFormat('dd/MM/yyyy').format(DateTime.now()).toString();
-    await getUserList(context: Get.context!);
-    await getSelectedList(context: Get.context!);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      selectedDate.value =
+          DateFormat('dd/MM/yyyy').format(DateTime.now()).toString();
+      await getUserList(context: Get.context!);
+      await getSelectedList(context: Get.context!);
+    });
     super.onInit();
   }
 

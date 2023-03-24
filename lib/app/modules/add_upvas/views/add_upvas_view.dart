@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:food_planner_app/app/routes/app_pages.dart';
 import 'package:food_planner_app/utilities/progress_dialog_utils.dart';
@@ -275,7 +274,7 @@ class AddUpvasView extends GetView<AddUpvasController> {
                           context: context,
                           task: SelectedModels(
                               id: controller.userList[mId].id!,
-                              status: 1.obs,
+                              status: 2.obs,
                               time: ArgumentConstant.savar.obs,
                               date: controller.selectedDate),
                         );
@@ -295,7 +294,7 @@ class AddUpvasView extends GetView<AddUpvasController> {
                             context: context,
                             task: SelectedModels(
                                 id: controller.userList[mId].id!,
-                                status: 1.obs,
+                                status: 2.obs,
                                 time: ArgumentConstant.Sanj.obs,
                                 date: controller.selectedDate),
                           );
@@ -311,7 +310,7 @@ class AddUpvasView extends GetView<AddUpvasController> {
                           context: context,
                           task: SelectedModels(
                               id: controller.userList[mId].id!,
-                              status: 1.obs,
+                              status: 2.obs,
                               time: ArgumentConstant.Sanj.obs,
                               date: controller.selectedDate),
                         );

@@ -32,11 +32,13 @@ class UpavasListViewController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    selectedDate.value =
-        DateFormat('dd/MM/yyyy').format(DateTime.now()).toString();
-    await getUserList(context: Get.context!);
-    await getSelectedList(context: Get.context!);
-    tempData();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      selectedDate.value =
+          DateFormat('dd/MM/yyyy').format(DateTime.now()).toString();
+      await getUserList(context: Get.context!);
+      await getSelectedList(context: Get.context!);
+      tempData();
+    });
     super.onInit();
   }
 
@@ -97,7 +99,7 @@ class UpavasListViewController extends GetxController {
               ),
               textButtonTheme: TextButtonThemeData(
                 style: TextButton.styleFrom(
-                  primary: appTheme.textGrayColor, // button text color
+                  foregroundColor: appTheme.textGrayColor, // button text color
                 ),
               ),
             ),

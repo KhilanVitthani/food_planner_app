@@ -42,7 +42,10 @@ class LocationScreenView extends GetView<LocationScreenController> {
               centerTitle: true,
               actions: [
                 TextButton(
-                  child: Text("Save"),
+                  child: Text(
+                    "Save",
+                    style: TextStyle(color: appTheme.primaryTheme),
+                  ),
                   onPressed: () async {
                     controller.selectedList.forEach((element) async {
                       if (controller.isFromLocation.isTrue) {
@@ -81,6 +84,7 @@ class LocationScreenView extends GetView<LocationScreenController> {
                                       controller.selectedList[index].location
                                           .value = value!;
                                     },
+                                    activeColor: appTheme.primaryTheme,
                                   ),
                                   Text(
                                     "Kundal",
@@ -88,7 +92,7 @@ class LocationScreenView extends GetView<LocationScreenController> {
                                         color: (controller.selectedList[index]
                                                     .location.value ==
                                                 controller.location[0])
-                                            ? Colors.blue
+                                            ? appTheme.primaryTheme
                                             : Colors.black),
                                   ),
                                 ],
@@ -104,6 +108,7 @@ class LocationScreenView extends GetView<LocationScreenController> {
                                       controller.selectedList[index].location
                                           .value = value!;
                                     },
+                                    activeColor: appTheme.primaryTheme,
                                   ),
                                   Text(
                                     "Vadodara",
@@ -111,7 +116,7 @@ class LocationScreenView extends GetView<LocationScreenController> {
                                         color: (controller.selectedList[index]
                                                     .location.value ==
                                                 controller.location[1])
-                                            ? Colors.blue
+                                            ? appTheme.primaryTheme
                                             : Colors.black),
                                   ),
                                 ],
@@ -127,6 +132,7 @@ class LocationScreenView extends GetView<LocationScreenController> {
                                       controller.selectedList[index].location
                                           .value = value!;
                                     },
+                                    activeColor: appTheme.primaryTheme,
                                   ),
                                   Text(
                                     "Gam",
@@ -134,7 +140,7 @@ class LocationScreenView extends GetView<LocationScreenController> {
                                         color: (controller.selectedList[index]
                                                     .location.value ==
                                                 controller.location[2])
-                                            ? Colors.blue
+                                            ? appTheme.primaryTheme
                                             : Colors.black),
                                   ),
                                 ],
