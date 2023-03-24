@@ -126,7 +126,7 @@ class HomeView extends GetView<HomeController> {
                                     padding: const EdgeInsets.only(
                                         right: 10.0, left: 10),
                                     child: DropdownButton<String>(
-                                      value: controller.dropdownlocation.value,
+                                      value: controller.dropDownLocation.value,
                                       elevation: 16,
                                       style: TextStyle(
                                           fontFamily: 'JosefinSans',
@@ -146,7 +146,7 @@ class HomeView extends GetView<HomeController> {
                                       ),
                                       onChanged: (String? value) {
                                         // This is called when the user selects an item.
-                                        controller.dropdownlocation.value =
+                                        controller.dropDownLocation.value =
                                             value!;
                                         controller.getSelectedList(
                                             context: context);
@@ -208,7 +208,7 @@ class HomeView extends GetView<HomeController> {
                                             .where((element) =>
                                                 element.location.value ==
                                                 controller
-                                                    .dropdownlocation.value)
+                                                    .dropDownLocation.value)
                                             .toList()
                                             .isEmpty)
                                         ? Container(
@@ -227,7 +227,7 @@ class HomeView extends GetView<HomeController> {
                                                 .where((element) =>
                                                     element.location.value ==
                                                     controller
-                                                        .dropdownlocation.value)
+                                                        .dropDownLocation.value)
                                                 .toList()
                                                 .length,
                                             itemBuilder: (context, index) {
@@ -241,16 +241,16 @@ class HomeView extends GetView<HomeController> {
                                                             element.location
                                                                 .value ==
                                                             controller
-                                                                .dropdownlocation
+                                                                .dropDownLocation
                                                                 .value)
                                                         .toList()[index]
                                                         .id!;
                                                     // print("object");
-                                                    bool isPresnt = controller
+                                                    bool isPresent = controller
                                                         .attendanceList
                                                         .any((element) =>
                                                             element.id == mId);
-                                                    if (isPresnt) {
+                                                    if (isPresent) {
                                                       SelectedModels
                                                           selectedData =
                                                           controller
@@ -305,7 +305,7 @@ class HomeView extends GetView<HomeController> {
                                                                         .location
                                                                         .value ==
                                                                     controller
-                                                                        .dropdownlocation
+                                                                        .dropDownLocation
                                                                         .value)
                                                                 .toList()[index]
                                                                 .id!,
@@ -326,7 +326,7 @@ class HomeView extends GetView<HomeController> {
                                                                         .location
                                                                         .value ==
                                                                     controller
-                                                                        .dropdownlocation
+                                                                        .dropDownLocation
                                                                         .value)
                                                                 .toList()[index]
                                                                 .id!,
@@ -351,7 +351,7 @@ class HomeView extends GetView<HomeController> {
                                                                           .location
                                                                           .value ==
                                                                       controller
-                                                                          .dropdownlocation
+                                                                          .dropDownLocation
                                                                           .value)
                                                                   .toList()[
                                                                       index]
@@ -362,7 +362,7 @@ class HomeView extends GetView<HomeController> {
                                                           //                     .location
                                                           //                     .value ==
                                                           //                 controller
-                                                          //                     .dropdownlocation
+                                                          //                     .dropDownLocation
                                                           //                     .value)
                                                           //             .toList()[index]
                                                           //             .isSelected
@@ -375,7 +375,7 @@ class HomeView extends GetView<HomeController> {
                                                           //                         .location
                                                           //                         .value ==
                                                           //                     controller
-                                                          //                         .dropdownlocation
+                                                          //                         .dropDownLocation
                                                           //                         .value)
                                                           //                 .toList()[
                                                           //                     index]
@@ -393,7 +393,7 @@ class HomeView extends GetView<HomeController> {
                                                                 element.location
                                                                     .value ==
                                                                 controller
-                                                                    .dropdownlocation
+                                                                    .dropDownLocation
                                                                     .value)
                                                             .toList()[index]
                                                             .name

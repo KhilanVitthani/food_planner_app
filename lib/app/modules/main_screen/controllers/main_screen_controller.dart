@@ -1,4 +1,3 @@
-import 'package:food_planner_app/main.dart';
 import 'package:get/get.dart';
 
 class MainScreenController extends GetxController {

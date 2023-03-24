@@ -27,7 +27,7 @@ class UpavasListViewController extends GetxController {
     ArgumentConstant.savar,
     ArgumentConstant.Sanj,
   ].obs;
-  RxString dropdownlocation = "Kundal".obs;
+  RxString dropDownLocation = "Kundal".obs;
   RxString dropdownValue = ArgumentConstant.savar.obs;
 
   @override
@@ -46,7 +46,7 @@ class UpavasListViewController extends GetxController {
     tempList.clear();
     locationsAttendanceList.clear();
     locationsSelectedUser.value = userList
-        .where((element) => element.location.value == dropdownlocation.value)
+        .where((element) => element.location.value == dropDownLocation.value)
         .toList();
     for (int i = 0; i < attendanceList.length; i++) {
       if (locationsSelectedUser

@@ -116,7 +116,7 @@ class UpavasListViewView extends GetView<UpavasListViewController> {
                               padding:
                                   const EdgeInsets.only(right: 10.0, left: 10),
                               child: DropdownButton<String>(
-                                value: controller.dropdownlocation.value,
+                                value: controller.dropDownLocation.value,
                                 elevation: 16,
                                 style: TextStyle(
                                     fontFamily: 'JosefinSans',
@@ -136,7 +136,7 @@ class UpavasListViewView extends GetView<UpavasListViewController> {
                                 ),
                                 onChanged: (String? value) {
                                   // This is called when the user selects an item.
-                                  controller.dropdownlocation.value = value!;
+                                  controller.dropDownLocation.value = value!;
                                   controller.tempData();
                                 },
                                 items: controller.dropdownListLocation

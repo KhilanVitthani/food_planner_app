@@ -27,7 +27,7 @@ class HomeController extends GetxController {
     ArgumentConstant.savar,
     ArgumentConstant.Sanj,
   ].obs;
-  RxString dropdownlocation = "Kundal".obs;
+  RxString dropDownLocation = "Kundal".obs;
 
   RxString dropdownValue = ArgumentConstant.savar.obs;
 
@@ -46,7 +46,7 @@ class HomeController extends GetxController {
     tempList.clear();
     locationsAttendanceList.clear();
     locationsSelectedUser.value = userList
-        .where((element) => element.location.value == dropdownlocation.value)
+        .where((element) => element.location.value == dropDownLocation.value)
         .toList();
     for (int i = 0; i < attendanceList.length; i++) {
       if (locationsSelectedUser
@@ -123,7 +123,7 @@ class HomeController extends GetxController {
               ),
               textButtonTheme: TextButtonThemeData(
                 style: TextButton.styleFrom(
-                  primary: appTheme.textGrayColor, // button text color
+                  foregroundColor: appTheme.textGrayColor, // button text color
                 ),
               ),
             ),
