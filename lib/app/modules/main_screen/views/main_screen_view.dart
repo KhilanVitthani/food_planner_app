@@ -22,7 +22,7 @@ class MainScreenView extends GetWidget<MainScreenController> {
             actions: [
               IconButton(
                   onPressed: () {
-                    Get.toNamed(Routes.LOCATION_SCREEN,
+                    Get.offAndToNamed(Routes.LOCATION_SCREEN,
                         arguments: {ArgumentConstant.isFromLocation: true});
                   },
                   icon: Icon(

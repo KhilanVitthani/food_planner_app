@@ -9,7 +9,7 @@ class TimerService {
     is40SecCompleted = false;
     timer = Timer.periodic(Duration(seconds: 1), (timer) {
       isTimerOn = true;
-      print("Timer Value := ${timer.tick}");
+      // print("Timer Value := ${timer.tick}");
       if (timer.tick >= 40) {
         is40SecCompleted = true;
         isTimerOn = false;

@@ -12,7 +12,9 @@ import '../../../../models/user.dart';
 
 class HomeController extends GetxController {
   RxString selectedDate = "".obs;
-
+  RxList<UserModels> locationsSelectedUser = RxList<UserModels>([]);
+  RxList<SelectedModels> locationsAttendanceList = RxList<SelectedModels>([]);
+  RxList<SelectedModels> tempList = RxList<SelectedModels>([]);
   RxList<UserModels> userList = RxList<UserModels>([]);
   RxList<SelectedModels> attendanceList = RxList<SelectedModels>([]);
   RxBool hasData = false.obs;
@@ -31,11 +33,33 @@ class HomeController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    selectedDate.value =
-        DateFormat('dd/MM/yyyy').format(DateTime.now()).toString();
-    await getUserList(context: Get.context!);
-    await getSelectedList(context: Get.context!);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      selectedDate.value =
+          DateFormat('dd/MM/yyyy').format(DateTime.now()).toString();
+      await getUserList(context: Get.context!);
+      await getSelectedList(context: Get.context!);
+    });
     super.onInit();
+  }
+
+  tempData({required BuildContext context}) {
+    tempList.clear();
+    locationsAttendanceList.clear();
+    locationsSelectedUser.value = userList
+        .where((element) => element.location.value == dropdownlocation.value)
+        .toList();
+    for (int i = 0; i < attendanceList.length; i++) {
+      if (locationsSelectedUser
+          .map((element) => element.id)
+          .toList()
+          .contains(attendanceList[i].id)) {
+        locationsAttendanceList.add(attendanceList[i]);
+      }
+    }
+    tempList.clear();
+    tempList.value =
+        locationsAttendanceList.where((p0) => p0.status == 1).toList();
+    getIt<CustomDialogs>().hideCircularDialog(context);
   }
 
   addTask({SelectedModels? task, required BuildContext context}) async {
@@ -79,12 +103,12 @@ class HomeController extends GetxController {
     attendanceList.clear();
     tasks.forEach((e) {
       if (!attendanceList.contains(e)) {
-        print(e);
+        // print(e);
         attendanceList.add(SelectedModels.fromJson(e));
       }
     });
-    print(attendanceList.length);
-    getIt<CustomDialogs>().hideCircularDialog(context);
+    // print(attendanceList.length);
+    tempData(context: context);
   }
 
   datePick({required BuildContext context}) async {
@@ -112,7 +136,7 @@ class HomeController extends GetxController {
         lastDate: DateTime(2100));
 
     if (pickedDate != null) {
-      print(pickedDate);
+      // print(pickedDate);
       selectedDate.value = DateFormat('dd/MM/yyyy').format(pickedDate);
       getSelectedList(context: context);
     } else {}

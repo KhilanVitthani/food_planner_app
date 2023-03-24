@@ -124,18 +124,20 @@ class LocationScreenController extends GetxController {
     if (!isNullEmptyOrFalse(Get.arguments)) {
       isFromLocation.value = Get.arguments[ArgumentConstant.isFromLocation];
     }
-    await getUserList(context: Get.context!);
+    if (isFromLocation.isTrue) {
+      await getUserList(context: Get.context!);
+    }
     super.onInit();
   }
 
   Future<void> getUserList({required BuildContext context}) async {
-    userList.clear();
+    selectedList.clear();
     List<Map<String, dynamic>> tasks = await getIt<DBHelper>().queryUser();
     tasks.forEach((e) {
       int id = e["id"];
       RxString name = e['name'].toString().obs;
       RxString location = e['location'].toString().obs;
-      userList.add(UserModels(id: id, name: name, location: location));
+      selectedList.add(UserModels(id: id, name: name, location: location));
     });
   }
 

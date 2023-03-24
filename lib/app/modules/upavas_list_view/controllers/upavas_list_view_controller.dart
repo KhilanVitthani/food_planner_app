@@ -71,6 +71,20 @@ class UpavasListViewController extends GetxController {
     hasData.value = true;
   }
 
+  Future<void> getSelectedList({required BuildContext context}) async {
+    List<Map<String, dynamic>> tasks = await getIt<DBHelper>()
+        .getDataFromDate(date: selectedDate.value, time: dropdownValue.value);
+    attendanceList.clear();
+    tasks.forEach((e) {
+      if (!attendanceList.contains(e)) {
+        // print(e);
+        attendanceList.add(SelectedModels.fromJson(e));
+      }
+    });
+    // print(attendanceList.length);
+    getIt<CustomDialogs>().hideCircularDialog(context);
+  }
+
   datePick({required BuildContext context}) async {
     DateTime? pickedDate = await showDatePicker(
         builder: (context, child) {
@@ -96,24 +110,10 @@ class UpavasListViewController extends GetxController {
         lastDate: DateTime(2100));
 
     if (pickedDate != null) {
-      print(pickedDate);
+      // print(pickedDate);
       selectedDate.value = DateFormat('dd/MM/yyyy').format(pickedDate);
       getSelectedList(context: context);
     } else {}
-  }
-
-  Future<void> getSelectedList({required BuildContext context}) async {
-    List<Map<String, dynamic>> tasks = await getIt<DBHelper>()
-        .getDataFromDate(date: selectedDate.value, time: dropdownValue.value);
-    attendanceList.clear();
-    tasks.forEach((e) {
-      if (!attendanceList.contains(e)) {
-        print(e);
-        attendanceList.add(SelectedModels.fromJson(e));
-      }
-    });
-    print(attendanceList.length);
-    getIt<CustomDialogs>().hideCircularDialog(context);
   }
 
   @override

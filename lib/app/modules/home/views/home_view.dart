@@ -147,7 +147,8 @@ class HomeView extends GetView<HomeController> {
                                         // This is called when the user selects an item.
                                         controller.dropdownlocation.value =
                                             value!;
-                                        // controller.data();
+                                        controller.getSelectedList(
+                                            context: context);
                                       },
                                       items: controller.dropdownListLocation
                                           .map<DropdownMenuItem<String>>(
@@ -185,10 +186,7 @@ class HomeView extends GetView<HomeController> {
                                       width: 5,
                                     ),
                                     Text(
-                                      controller.attendanceList
-                                          .where((p0) => p0.status == 1)
-                                          .length
-                                          .toString(),
+                                      controller.tempList.length.toString(),
                                     ),
                                     SizedBox(
                                       width: 10,
@@ -231,7 +229,7 @@ class HomeView extends GetView<HomeController> {
                                                           .value)
                                                   .toList()[index]
                                                   .id!;
-                                              print("object");
+                                              // print("object");
                                               bool isPresnt = controller
                                                   .attendanceList
                                                   .any((element) =>
@@ -243,15 +241,18 @@ class HomeView extends GetView<HomeController> {
                                                             p0.id == mId)
                                                         .first;
                                                 if (selectedData.status == 1) {
-                                                  getIt<DBHelper>().update(
+                                                  getIt<DBHelper>().updateTime(
                                                       id: selectedData.id,
+                                                      time: selectedData.time,
+                                                      date: selectedData.date,
                                                       status: 2.obs);
                                                 } else if (selectedData
                                                         .status ==
                                                     2) {
-                                                  getIt<DBHelper>().update(
+                                                  getIt<DBHelper>().delete(
                                                       id: selectedData.id,
-                                                      status: 0.obs);
+                                                      time: selectedData.time,
+                                                      date: selectedData.date);
                                                 } else {
                                                   getIt<DBHelper>().update(
                                                       id: selectedData.id,

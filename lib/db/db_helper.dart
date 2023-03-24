@@ -20,7 +20,7 @@ class DBHelper {
         _path,
         version: _versoin,
         onCreate: (db, version) {
-          print("Create a new one");
+          // print("Create a new one");
           db.execute(
             "CREATE TABLE $_tableAttendance("
             "id INTEGER, "
@@ -33,40 +33,44 @@ class DBHelper {
             "name STRING,location STRING)",
           )
               .then((value) {
-            print("value");
+            // print("value");
           });
         },
       );
 
-      print(_dbAttendance);
+      // print(_dbAttendance);
     } catch (e) {
-      print(e);
+      // print(e);
     }
   }
 
   Future<int> insertUserTable(UserModels? task) async {
-    print("insert function called");
+    // print("insert function called");
     return await _dbUser?.insert(_tableUser, task!.toJson()) ?? 1;
   }
 
   Future<int> insertAttendanceTable(SelectedModels? task) async {
-    print("insert function called");
+    // print("insert function called");
     return await _dbUser?.insert(_tableAttendance, task!.toJson()) ?? 1;
   }
 
   Future<List<Map<String, dynamic>>> queryUser() async {
-    print("query function called");
+    // print("query function called");
     return await _dbUser!.query(_tableUser);
   }
 
   Future<List<Map<String, dynamic>>> queryAttendance() async {
-    print("query function called");
+    // print("query function called");
     return await _dbUser!.query(_tableAttendance);
   }
 
-  // static delete(Task task) async {
-  //   return await _db!.delete(_tableUser, where: 'id=?', whereArgs: [task.id]);
-  // }
+  delete(
+      {required int id, required RxString time, required RxString date}) async {
+    return await _dbUser!.delete(_tableAttendance,
+        where: 'id=? AND time = ? AND date = ?',
+        whereArgs: [id, time.value, date.value]);
+  }
+
   Future<List<Map<String, dynamic>>> getDataFromDate(
       {required String date, required String time}) async {
     return await _dbUser!.rawQuery(
@@ -80,7 +84,31 @@ class DBHelper {
         SET status = ?
         WHERE id =?
       ''', [status.value, id]).then((value) {
-      print(value);
+      // print(value);
+    });
+  }
+
+  updateTime(
+      {required int id,
+      required RxString time,
+      required RxInt status,
+      required RxString date}) async {
+    return await _dbUser!.rawUpdate('''
+        UPDATE $_tableAttendance
+        SET status = ?
+        WHERE (id =? AND time = ? AND date = ?)
+      ''', [status.value, id, time.value, date.value]).then((value) {
+      // print(value);
+    });
+  }
+
+  updateLocation({required int id, required RxString location}) async {
+    return await _dbUser!.rawUpdate('''
+        UPDATE $_tableUser
+        SET location = ?
+        WHERE id =?
+      ''', [location.value, id]).then((value) {
+      // print(value);
     });
   }
 }

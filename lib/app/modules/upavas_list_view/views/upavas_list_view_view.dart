@@ -221,7 +221,7 @@ class UpavasListViewView extends GetView<UpavasListViewController> {
                     bottom: 35,
                     child: InkWell(
                       onTap: () {
-                        Get.toNamed(Routes.ADD_UPVAS);
+                        Get.offAndToNamed(Routes.ADD_UPVAS);
                       },
                       child: Container(
                         decoration: BoxDecoration(
