@@ -37,12 +37,11 @@ class UpavasListViewController extends GetxController {
           DateFormat('dd/MM/yyyy').format(DateTime.now()).toString();
       await getUserList(context: Get.context!);
       await getSelectedList(context: Get.context!);
-      tempData();
     });
     super.onInit();
   }
 
-  tempData() {
+  tempData({required BuildContext context}) {
     tempList.clear();
     locationsAttendanceList.clear();
     locationsSelectedUser.value = userList
@@ -59,6 +58,7 @@ class UpavasListViewController extends GetxController {
     tempList.clear();
     tempList.value =
         locationsAttendanceList.where((p0) => p0.status == 2).toList();
+    getIt<CustomDialogs>().hideCircularDialog(context);
   }
 
   Future<void> getUserList({required BuildContext context}) async {
@@ -84,7 +84,7 @@ class UpavasListViewController extends GetxController {
       }
     });
     // print(attendanceList.length);
-    getIt<CustomDialogs>().hideCircularDialog(context);
+    tempData(context: context);
   }
 
   datePick({required BuildContext context}) async {

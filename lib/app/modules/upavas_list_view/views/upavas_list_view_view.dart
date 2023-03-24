@@ -137,7 +137,8 @@ class UpavasListViewView extends GetView<UpavasListViewController> {
                                 onChanged: (String? value) {
                                   // This is called when the user selects an item.
                                   controller.dropDownLocation.value = value!;
-                                  controller.tempData();
+                                  controller.getSelectedList(
+                                      context: Get.context!);
                                 },
                                 items: controller.dropdownListLocation
                                     .map<DropdownMenuItem<String>>(
