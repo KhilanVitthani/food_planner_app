@@ -231,7 +231,7 @@ class HomeView extends GetView<HomeController> {
                                                 .toList()
                                                 .length,
                                             itemBuilder: (context, index) {
-                                              return InkWell(
+                                              return GestureDetector(
                                                 onTap: () {
                                                   if (controller.attendanceList
                                                       .isNotEmpty) {
