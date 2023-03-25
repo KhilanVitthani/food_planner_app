@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:food_planner_app/constants/app_module.dart';
 import 'package:food_planner_app/db/db_helper.dart';
 
@@ -12,6 +13,9 @@ final getIt = GetIt.instance;
 GetStorage box = GetStorage();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
   setUp();
   await GetStorage.init();
   await getIt<DBHelper>().initDb();
