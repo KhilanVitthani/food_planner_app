@@ -35,9 +35,9 @@ class UpavasListViewController extends GetxController {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       selectedDate.value =
           DateFormat('dd/MM/yyyy').format(DateTime.now()).toString();
+      getTime();
       await getUserList(context: Get.context!);
       await getSelectedList(context: Get.context!);
-      getTime();
     });
     super.onInit();
   }
