@@ -29,7 +29,7 @@ class HomeView extends GetView<HomeController> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.all(5.0),
+                                padding: EdgeInsets.all(MySize.getWidth(4)),
                                 child: Container(
                                   decoration: BoxDecoration(
                                       border: Border.all(
@@ -37,7 +37,7 @@ class HomeView extends GetView<HomeController> {
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(12))),
                                   child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding: EdgeInsets.all(MySize.getWidth(8)),
                                     child: InkWell(
                                       onTap: () {
                                         controller.datePick(
@@ -65,7 +65,7 @@ class HomeView extends GetView<HomeController> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.all(5.0),
+                                padding: EdgeInsets.all(MySize.getWidth(4)),
                                 child: Container(
                                   height: 40,
                                   decoration: BoxDecoration(
@@ -114,7 +114,7 @@ class HomeView extends GetView<HomeController> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.all(5.0),
+                                padding: EdgeInsets.all(MySize.getWidth(4)),
                                 child: Container(
                                   height: 40,
                                   decoration: BoxDecoration(
@@ -123,8 +123,7 @@ class HomeView extends GetView<HomeController> {
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(12))),
                                   child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        right: 10.0, left: 10),
+                                    padding: EdgeInsets.all(MySize.getWidth(8)),
                                     child: DropdownButton<String>(
                                       value: controller.dropDownLocation.value,
                                       elevation: 16,
@@ -135,7 +134,7 @@ class HomeView extends GetView<HomeController> {
                                       borderRadius:
                                           BorderRadius.all(Radius.circular(12)),
                                       icon: Padding(
-                                        padding: EdgeInsets.only(left: 20.0),
+                                        padding: EdgeInsets.only(left: 00.0),
                                         child: Image.asset(
                                             "assets/icons_image/down.png",
                                             height: 20),

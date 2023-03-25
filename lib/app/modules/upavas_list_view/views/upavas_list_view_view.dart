@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../constants/color_constant.dart';
 import '../../../../constants/sizeConstant.dart';
@@ -25,7 +26,7 @@ class UpavasListViewView extends GetView<UpavasListViewController> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(5.0),
+                          padding: EdgeInsets.all(MySize.getWidth(4)),
                           child: Container(
                             decoration: BoxDecoration(
                                 border:
@@ -56,7 +57,7 @@ class UpavasListViewView extends GetView<UpavasListViewController> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(5.0),
+                          padding: EdgeInsets.all(MySize.getWidth(4)),
                           child: Container(
                             height: 40,
                             decoration: BoxDecoration(
@@ -104,7 +105,7 @@ class UpavasListViewView extends GetView<UpavasListViewController> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(5.0),
+                          padding: EdgeInsets.all(MySize.getWidth(4)),
                           child: Container(
                             height: 40,
                             decoration: BoxDecoration(
@@ -113,8 +114,7 @@ class UpavasListViewView extends GetView<UpavasListViewController> {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(12))),
                             child: Padding(
-                              padding:
-                                  const EdgeInsets.only(right: 10.0, left: 10),
+                              padding: EdgeInsets.all(8),
                               child: DropdownButton<String>(
                                 value: controller.dropDownLocation.value,
                                 elevation: 16,
@@ -124,12 +124,8 @@ class UpavasListViewView extends GetView<UpavasListViewController> {
                                     fontWeight: FontWeight.w500),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(12)),
-                                icon: Padding(
-                                  padding: EdgeInsets.only(left: 20.0),
-                                  child: Image.asset(
-                                      "assets/icons_image/down.png",
-                                      height: 20),
-                                ),
+                                icon: Image.asset("assets/icons_image/down.png",
+                                    height: 20),
                                 underline: Container(
                                   // height: 2,
                                   color: Colors.white,
@@ -228,7 +224,14 @@ class UpavasListViewView extends GetView<UpavasListViewController> {
                     bottom: 35,
                     child: InkWell(
                       onTap: () {
-                        Get.offAndToNamed(Routes.ADD_UPVAS);
+                        TimeOfDay day = TimeOfDay.now();
+
+                        if (day.hour < 12) {
+                          print('its morning');
+                        } else {
+                          print('its evening/night');
+                        }
+                        // Get.offAndToNamed(Routes.ADD_UPVAS);
                       },
                       child: Container(
                         decoration: BoxDecoration(

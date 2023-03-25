@@ -37,8 +37,21 @@ class UpavasListViewController extends GetxController {
           DateFormat('dd/MM/yyyy').format(DateTime.now()).toString();
       await getUserList(context: Get.context!);
       await getSelectedList(context: Get.context!);
+      getTime();
     });
     super.onInit();
+  }
+
+  getTime() {
+    TimeOfDay day = TimeOfDay.now();
+    switch (day.period) {
+      case DayPeriod.am:
+        dropdownValue.value = list[0];
+        break;
+      case DayPeriod.pm:
+        dropdownValue.value = list[1];
+        break;
+    }
   }
 
   tempData({required BuildContext context}) {

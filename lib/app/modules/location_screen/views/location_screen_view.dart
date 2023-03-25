@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_planner_app/constants/sizeConstant.dart';
 import 'package:food_planner_app/db/db_helper.dart';
 import 'package:food_planner_app/main.dart';
 
@@ -14,6 +15,7 @@ class LocationScreenView extends GetView<LocationScreenController> {
 
   @override
   Widget build(BuildContext context) {
+    MySize().init(context);
     return Obx(() {
       return WillPopScope(
         onWillPop: () async {
@@ -63,88 +65,104 @@ class LocationScreenView extends GetView<LocationScreenController> {
               ],
             ),
             body: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(MySize.getWidth(8)),
                 child: ListView.builder(
                   itemCount: controller.selectedList.length,
                   itemBuilder: (context, index) {
-                    return ListTile(
-                      title:
-                          Text(controller.selectedList[index].name.toString()),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
+                    return Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Row(
                         children: [
-                          Obx(() => Row(
-                                children: [
-                                  Radio(
-                                    value: controller.location[0],
-                                    groupValue: controller
-                                        .selectedList[index].location.value
-                                        .toString(),
-                                    onChanged: (value) {
-                                      controller.selectedList[index].location
-                                          .value = value!;
-                                    },
-                                    activeColor: appTheme.primaryTheme,
-                                  ),
-                                  Text(
-                                    "Kundal",
-                                    style: TextStyle(
-                                        color: (controller.selectedList[index]
-                                                    .location.value ==
-                                                controller.location[0])
-                                            ? appTheme.primaryTheme
-                                            : Colors.black),
-                                  ),
-                                ],
-                              )),
-                          Obx(() => Row(
-                                children: [
-                                  Radio(
-                                    value: controller.location[1],
-                                    groupValue: controller
-                                        .selectedList[index].location.value
-                                        .toString(),
-                                    onChanged: (value) {
-                                      controller.selectedList[index].location
-                                          .value = value!;
-                                    },
-                                    activeColor: appTheme.primaryTheme,
-                                  ),
-                                  Text(
-                                    "Vadodara",
-                                    style: TextStyle(
-                                        color: (controller.selectedList[index]
-                                                    .location.value ==
-                                                controller.location[1])
-                                            ? appTheme.primaryTheme
-                                            : Colors.black),
-                                  ),
-                                ],
-                              )),
-                          Obx(() => Row(
-                                children: [
-                                  Radio(
-                                    value: controller.location[2],
-                                    groupValue: controller
-                                        .selectedList[index].location.value
-                                        .toString(),
-                                    onChanged: (value) {
-                                      controller.selectedList[index].location
-                                          .value = value!;
-                                    },
-                                    activeColor: appTheme.primaryTheme,
-                                  ),
-                                  Text(
-                                    "Gam",
-                                    style: TextStyle(
-                                        color: (controller.selectedList[index]
-                                                    .location.value ==
-                                                controller.location[2])
-                                            ? appTheme.primaryTheme
-                                            : Colors.black),
-                                  ),
-                                ],
-                              )),
+                          Spacer(),
+                          Text(
+                            controller.selectedList[index].name.toString(),
+                          ),
+                          Spacer(),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Obx(() => Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Radio(
+                                        value: controller.location[0],
+                                        groupValue: controller
+                                            .selectedList[index].location.value
+                                            .toString(),
+                                        onChanged: (value) {
+                                          controller.selectedList[index]
+                                              .location.value = value!;
+                                        },
+                                        activeColor: appTheme.primaryTheme,
+                                      ),
+                                      Text(
+                                        "Kundal",
+                                        style: TextStyle(
+                                          color: (controller.selectedList[index]
+                                                      .location.value ==
+                                                  controller.location[0])
+                                              ? appTheme.primaryTheme
+                                              : Colors.black,
+                                        ),
+                                      ),
+                                    ],
+                                  )),
+                              Obx(() => Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Radio(
+                                        value: controller.location[1],
+                                        groupValue: controller
+                                            .selectedList[index].location.value
+                                            .toString(),
+                                        onChanged: (value) {
+                                          controller.selectedList[index]
+                                              .location.value = value!;
+                                        },
+                                        activeColor: appTheme.primaryTheme,
+                                      ),
+                                      Text(
+                                        "Vadodara",
+                                        style: TextStyle(
+                                            color: (controller
+                                                        .selectedList[index]
+                                                        .location
+                                                        .value ==
+                                                    controller.location[1])
+                                                ? appTheme.primaryTheme
+                                                : Colors.black),
+                                      ),
+                                    ],
+                                  )),
+                              Obx(() => Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Radio(
+                                        value: controller.location[2],
+                                        groupValue: controller
+                                            .selectedList[index].location.value
+                                            .toString(),
+                                        onChanged: (value) {
+                                          controller.selectedList[index]
+                                              .location.value = value!;
+                                        },
+                                        activeColor: appTheme.primaryTheme,
+                                      ),
+                                      Text(
+                                        "Gam",
+                                        style: TextStyle(
+                                            color: (controller
+                                                        .selectedList[index]
+                                                        .location
+                                                        .value ==
+                                                    controller.location[2])
+                                                ? appTheme.primaryTheme
+                                                : Colors.black),
+                                      ),
+                                    ],
+                                  )),
+                            ],
+                          ),
                         ],
                       ),
                     );
