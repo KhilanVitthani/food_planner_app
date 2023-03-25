@@ -316,22 +316,63 @@ class AddUpvasView extends GetView<AddUpvasController> {
                         );
                       }
                     } else {
-                      controller.addTask(
-                        context: context,
-                        task: SelectedModels(
-                            id: controller.userList[mId].id!,
-                            status: 2.obs,
-                            time: ArgumentConstant.savar.obs,
-                            date: controller.selectedDate),
-                      );
-                      controller.addTask(
-                        context: context,
-                        task: SelectedModels(
-                            id: controller.userList[mId].id!,
-                            status: 2.obs,
-                            time: ArgumentConstant.Sanj.obs,
-                            date: controller.selectedDate),
-                      );
+                      bool isPresent = controller.savarAttendanceList.any(
+                          (element) =>
+                              element.id == controller.userList[mId].id);
+                      if (isPresent) {
+                        SelectedModels selectedData = controller
+                            .savarAttendanceList
+                            .where((p0) => p0.id == controller.userList[mId].id)
+                            .first;
+                        if (selectedData.time != ArgumentConstant.Sanj) {
+                          controller.addTask(
+                            context: context,
+                            task: SelectedModels(
+                                id: controller.userList[mId].id!,
+                                status: 2.obs,
+                                time: ArgumentConstant.Sanj.obs,
+                                date: controller.selectedDate),
+                          );
+
+                          getIt<DBHelper>().updateTime(
+                              id: selectedData.id,
+                              status: 2.obs,
+                              date: selectedData.date,
+                              time: ArgumentConstant.savar.obs);
+                        }
+                        if (selectedData.time != ArgumentConstant.savar) {
+                          controller.addTask(
+                            context: context,
+                            task: SelectedModels(
+                                id: controller.userList[mId].id!,
+                                status: 2.obs,
+                                time: ArgumentConstant.savar.obs,
+                                date: controller.selectedDate),
+                          );
+                          getIt<DBHelper>().updateTime(
+                              id: selectedData.id,
+                              status: 2.obs,
+                              date: selectedData.date,
+                              time: ArgumentConstant.Sanj.obs);
+                        }
+                      } else {
+                        controller.addTask(
+                          context: context,
+                          task: SelectedModels(
+                              id: controller.userList[mId].id!,
+                              status: 2.obs,
+                              time: ArgumentConstant.savar.obs,
+                              date: controller.selectedDate),
+                        );
+                        controller.addTask(
+                          context: context,
+                          task: SelectedModels(
+                              id: controller.userList[mId].id!,
+                              status: 2.obs,
+                              time: ArgumentConstant.Sanj.obs,
+                              date: controller.selectedDate),
+                        );
+                      }
                     }
                     Get.offAndToNamed(Routes.MAIN_SCREEN);
                     controller.tempData(context: context);
