@@ -49,6 +49,102 @@ class AddUpvasView extends GetView<AddUpvasController> {
             children: [
               Column(children: [
                 Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Time"),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              getIt<CustomDialogs>()
+                                  .showCircularDialog(context);
+
+                              controller.isFullDaySelected.value = false;
+                              controller.isSavarSelected.value = true;
+                              controller.isSanjSelected.value = false;
+                              controller.getSelectedList(context: context);
+                            },
+                            child: Row(
+                              children: [
+                                (controller.isSavarSelected.isTrue)
+                                    ? Image.asset(
+                                        "assets/icons_image/CheckBox.png",
+                                        height: 20)
+                                    : Image.asset("assets/icons_image/box.png",
+                                        height: 20),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text("Savar"),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            width: 15,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              getIt<CustomDialogs>()
+                                  .showCircularDialog(context);
+
+                              controller.isFullDaySelected.value = false;
+                              controller.isSavarSelected.value = false;
+                              controller.isSanjSelected.value = true;
+                              controller.getSelectedList(context: context);
+                            },
+                            child: Row(
+                              children: [
+                                (controller.isSanjSelected.isTrue)
+                                    ? Image.asset(
+                                        "assets/icons_image/CheckBox.png",
+                                        height: 20)
+                                    : Image.asset("assets/icons_image/box.png",
+                                        height: 20),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text("Sanj"),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            width: 15,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              getIt<CustomDialogs>()
+                                  .showCircularDialog(context);
+                              controller.isFullDaySelected.value = true;
+                              controller.isSavarSelected.value = false;
+                              controller.isSanjSelected.value = false;
+                              controller.getFullData(context: context);
+                            },
+                            child: Row(
+                              children: [
+                                (controller.isFullDaySelected.isTrue)
+                                    ? Image.asset(
+                                        "assets/icons_image/CheckBox.png",
+                                        height: 20)
+                                    : Image.asset("assets/icons_image/box.png",
+                                        height: 20),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text("Full Day"),
+                              ],
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+                Padding(
                   padding: const EdgeInsets.all(20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -146,102 +242,6 @@ class AddUpvasView extends GetView<AddUpvasController> {
                                   ],
                                 ),
                               ),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Time"),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              getIt<CustomDialogs>()
-                                  .showCircularDialog(context);
-
-                              controller.isFullDaySelected.value = false;
-                              controller.isSavarSelected.value = true;
-                              controller.isSanjSelected.value = false;
-                              controller.getSelectedList(context: context);
-                            },
-                            child: Row(
-                              children: [
-                                (controller.isSavarSelected.isTrue)
-                                    ? Image.asset(
-                                        "assets/icons_image/CheckBox.png",
-                                        height: 20)
-                                    : Image.asset("assets/icons_image/box.png",
-                                        height: 20),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text("Savar"),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            width: 15,
-                          ),
-                          InkWell(
-                            onTap: () {
-                              getIt<CustomDialogs>()
-                                  .showCircularDialog(context);
-
-                              controller.isFullDaySelected.value = false;
-                              controller.isSavarSelected.value = false;
-                              controller.isSanjSelected.value = true;
-                              controller.getSelectedList(context: context);
-                            },
-                            child: Row(
-                              children: [
-                                (controller.isSanjSelected.isTrue)
-                                    ? Image.asset(
-                                        "assets/icons_image/CheckBox.png",
-                                        height: 20)
-                                    : Image.asset("assets/icons_image/box.png",
-                                        height: 20),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text("Sanj"),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            width: 15,
-                          ),
-                          InkWell(
-                            onTap: () {
-                              getIt<CustomDialogs>()
-                                  .showCircularDialog(context);
-                              controller.isFullDaySelected.value = true;
-                              controller.isSavarSelected.value = false;
-                              controller.isSanjSelected.value = false;
-                              controller.getFullData(context: context);
-                            },
-                            child: Row(
-                              children: [
-                                (controller.isFullDaySelected.isTrue)
-                                    ? Image.asset(
-                                        "assets/icons_image/CheckBox.png",
-                                        height: 20)
-                                    : Image.asset("assets/icons_image/box.png",
-                                        height: 20),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text("Full Day"),
-                              ],
                             ),
                           ),
                         ],
