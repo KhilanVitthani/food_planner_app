@@ -98,6 +98,14 @@ class HomeController extends GetxController {
     }
   }
 
+  Color getTextColor({required int id}) {
+    if (attendanceList.any((element) => element.id == id)) {
+      return Colors.white;
+    } else {
+      return appTheme.textGrayColor;
+    }
+  }
+
   Future<void> getUserList({required BuildContext context}) async {
     userList.clear();
     List<Map<String, dynamic>> tasks = await getIt<DBHelper>().queryUser();

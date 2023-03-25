@@ -4,7 +4,7 @@ import 'package:food_planner_app/constants/sizeConstant.dart';
 
 class BaseTheme {
   Color get primaryTheme => fromHex("#881618");
-  Color get textGrayColor => fromHex("#AFB1C0");
+  Color get textGrayColor => fromHex("#BBBCC6");
   Color get unSelectedColor => fromHex("#EAEAEC");
   Color get SelectedColor => fromHex("#00AB55");
 

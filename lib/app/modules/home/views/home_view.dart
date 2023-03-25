@@ -398,7 +398,19 @@ class HomeView extends GetView<HomeController> {
                                                             .name
                                                             .toString(),
                                                         style: TextStyle(
-                                                            color: Colors.white,
+                                                            color: controller.getTextColor(
+                                                                id: controller
+                                                                    .userList
+                                                                    .where((element) =>
+                                                                        element
+                                                                            .location
+                                                                            .value ==
+                                                                        controller
+                                                                            .dropDownLocation
+                                                                            .value)
+                                                                    .toList()[
+                                                                        index]
+                                                                    .id!),
                                                             fontSize: 20),
                                                       )));
                                                 }),
