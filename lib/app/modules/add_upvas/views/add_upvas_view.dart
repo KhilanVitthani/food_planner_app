@@ -16,6 +16,7 @@ class AddUpvasView extends GetView<AddUpvasController> {
     return WillPopScope(
       onWillPop: () async {
         Get.offAndToNamed(Routes.MAIN_SCREEN);
+
         return await true;
       },
       child: Scaffold(
