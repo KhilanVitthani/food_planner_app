@@ -30,7 +30,7 @@ class DBHelper {
           db.execute(
             "CREATE TABLE $_tableUser("
             "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-            "name STRING,location STRING)",
+            "name STRING,location STRING ,isSelected INTEGER)",
           );
           db
               .execute(
@@ -119,6 +119,16 @@ class DBHelper {
         SET location = ?
         WHERE id =?
       ''', [location.value, id]).then((value) {
+      // print(value);
+    });
+  }
+
+  updateIsSelected({required int id, required RxInt isSelected}) async {
+    return await _dbUser!.rawUpdate('''
+        UPDATE $_tableUser
+        SET isSelected = ?
+        WHERE id =?
+      ''', [isSelected.value, id]).then((value) {
       // print(value);
     });
   }

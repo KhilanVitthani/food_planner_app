@@ -10,10 +10,6 @@ import '../../../../models/user.dart';
 class AddAlwaysUpvashController extends GetxController {
   RxBool isFromHome = false.obs;
   RxList<UserModels> selectedList = RxList<UserModels>([]);
-  RxList<AddAlwaysUpvasModel> UserSelectedList =
-      RxList<AddAlwaysUpvasModel>([]);
-
-  RxBool isSelected = false.obs;
   @override
   Future<void> onInit() async {
     if (Get.arguments != null) {
@@ -30,7 +26,9 @@ class AddAlwaysUpvashController extends GetxController {
       int id = e["id"];
       RxString name = e['name'].toString().obs;
       RxString location = e['location'].toString().obs;
-      selectedList.add(UserModels(id: id, name: name, location: location));
+      int isSelected = e["isSelected"];
+      selectedList.add(UserModels(
+          id: id, name: name, location: location, isSelected: isSelected.obs));
     });
   }
 

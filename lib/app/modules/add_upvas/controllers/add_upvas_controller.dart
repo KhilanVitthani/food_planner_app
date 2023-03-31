@@ -74,7 +74,9 @@ class AddUpvasController extends GetxController {
       int id = e["id"];
       RxString name = e['name'].toString().obs;
       RxString location = e['location'].toString().obs;
-      userList.add(UserModels(id: id, name: name, location: location));
+      int isSelected = e['isSelected'];
+      userList.add(UserModels(
+          id: id, name: name, location: location, isSelected: isSelected.obs));
     });
     hasData.value = true;
   }

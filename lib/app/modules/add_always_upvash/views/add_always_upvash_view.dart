@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../../constants/app_constant.dart';
 import '../../../../constants/color_constant.dart';
+import '../../../../db/db_helper.dart';
+import '../../../../main.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/add_always_upvash_controller.dart';
 
-class AddAlwaysUpvashView extends GetView<AddAlwaysUpvashController> {
+class AddAlwaysUpvashView extends GetWidget<AddAlwaysUpvashController> {
   const AddAlwaysUpvashView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -19,43 +23,77 @@ class AddAlwaysUpvashView extends GetView<AddAlwaysUpvashController> {
       },
       child: Scaffold(
           appBar: AppBar(
-            title: const Text('AddAlwaysUpvashView'),
-            leading: (controller.isFromHome == true)
-                ? InkWell(
-                    onTap: () {
-                      Get.offAndToNamed(Routes.MAIN_SCREEN);
-                    },
-                    child: Icon(
-                      Icons.arrow_back,
-                      color: appTheme.primaryTheme,
-                    ),
-                  )
-                : SizedBox(),
+            backgroundColor: Colors.white,
+            elevation: 0,
+            leading: InkWell(
+              onTap: () {
+                Get.back();
+              },
+              child: Icon(
+                Icons.arrow_back,
+                color: appTheme.primaryTheme,
+              ),
+            ),
+            // leading: (controller.isFromLocation == true)
+            //     ? InkWell(
+            //   onTap: () {
+            //     Get.offAndToNamed(Routes.MAIN_SCREEN);
+            //   },
+            //   child: Icon(
+            //     Icons.arrow_back,
+            //     color: appTheme.primaryTheme,
+            //   ),
+            // )
+            //     : SizedBox(),
+            title: Text(ArgumentConstant.addFullUpvas,
+                style: TextStyle(color: Colors.black)),
             centerTitle: true,
-          ),
-          body: Column(
-            children: [
-              Expanded(
-                child: Container(
-                  child: ListView.builder(
-                    itemCount: controller.selectedList.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(
-                            controller.selectedList[index].name.toString()),
-                        trailing: Checkbox(
-                          value: controller.isSelected.value,
-                          onChanged: (value) {
-                            controller.isSelected.value = value!;
-                          },
-                        ),
-                      );
-                    },
-                  ),
+            actions: [
+              TextButton(
+                child: Text(
+                  "Save",
+                  style: TextStyle(color: appTheme.primaryTheme),
                 ),
-              )
+                onPressed: () async {
+                  controller.selectedList.forEach((element) async {
+                    getIt<DBHelper>().updateIsSelected(
+                        id: element.id!, isSelected: element.isSelected);
+                  });
+                  await Get.offAllNamed(Routes.MAIN_SCREEN);
+                },
+              ),
             ],
-          )),
+          ),
+          body: Obx(() {
+            return Column(
+              children: [
+                Expanded(
+                  child: Container(
+                    child: ListView.builder(
+                      itemCount: controller.selectedList.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(
+                              controller.selectedList[index].name.toString()),
+                          trailing: Checkbox(
+                            value:
+                                (controller.selectedList[index].isSelected == 0)
+                                    ? false
+                                    : true,
+                            onChanged: (value) {
+                              controller.selectedList[index].isSelected.value =
+                                  (value!) ? 1 : 0;
+                              controller.selectedList.refresh();
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                )
+              ],
+            );
+          })),
     );
   }
 }

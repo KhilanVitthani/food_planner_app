@@ -58,8 +58,8 @@ class LocationScreenView extends GetView<LocationScreenController> {
                       }
                     });
                     box.write(ArgumentConstant.isFirstTime, true);
-                    // print(box.read(ArgumentConstant.isFirstTime));
-                    await Get.offAllNamed(Routes.MAIN_SCREEN);
+                    await Get.toNamed(Routes.ADD_ALWAYS_UPVASH);
+                    // await Get.offAllNamed(Routes.MAIN_SCREEN);
                   },
                 ),
               ],
