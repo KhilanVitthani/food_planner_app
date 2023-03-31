@@ -36,7 +36,7 @@ class DBHelper {
               .execute(
             "CREATE TABLE $_tableAlways("
             "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-            "name STRING,location STRING)",
+            "name STRING,isSelected INTEGER)",
           )
               .then((value) {
             // print("value");
