@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_planner_app/constants/app_constant.dart';
 import 'package:food_planner_app/constants/sizeConstant.dart';
 import 'package:food_planner_app/models/selected_model.dart';
 
@@ -164,37 +165,68 @@ class HomeView extends GetView<HomeController> {
                               ),
                             ],
                           ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    right: 8.0, left: 8, bottom: 8),
-                                child: Row(
-                                  children: [
-                                    Text("Active",
-                                        style: TextStyle(fontSize: 15)),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    CircleAvatar(
-                                        radius: 5,
-                                        backgroundColor:
-                                            appTheme.SelectedColor),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    Text(
-                                      controller.tempList.length.toString(),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                  ],
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: MySize.getWidth(8),
+                                right: MySize.getWidth(8),
+                                bottom: MySize.getHeight(8),
+                                top: MySize.getHeight(8)),
+                            child: Row(
+                              children: [
+                                Text(ArgumentConstant.totalUpvas,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                    )),
+                                SizedBox(
+                                  width: 5,
                                 ),
-                              ),
-                            ],
+                                CircleAvatar(
+                                    radius: 5, backgroundColor: Colors.red),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  controller.locationsAttendanceList
+                                      .where((p0) => p0.status == 2)
+                                      .toList()
+                                      .length
+                                      .toString(),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.red),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Spacer(),
+                                Text(ArgumentConstant.totalJamnar,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                    )),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                CircleAvatar(
+                                    radius: 5,
+                                    backgroundColor: appTheme.SelectedColor),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  controller.locationsAttendanceList
+                                      .where((p0) => p0.status == 1)
+                                      .toList()
+                                      .length
+                                      .toString(),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: appTheme.SelectedColor),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                              ],
+                            ),
                           ),
                           Expanded(
                             child: Padding(

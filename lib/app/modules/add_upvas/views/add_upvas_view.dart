@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_planner_app/app/routes/app_pages.dart';
+import 'package:food_planner_app/constants/sizeConstant.dart';
 import 'package:food_planner_app/utilities/progress_dialog_utils.dart';
 import 'package:get/get.dart';
 import '../../../../constants/app_constant.dart';
@@ -45,10 +46,9 @@ class AddUpvasView extends GetView<AddUpvasController> {
           centerTitle: true,
         ),
         body: Obx(() {
-          return Stack(
-            alignment: Alignment.bottomCenter,
-            children: [
-              Column(children: [
+          return SingleChildScrollView(
+            child: Column(
+              children: [
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Column(
@@ -68,6 +68,8 @@ class AddUpvasView extends GetView<AddUpvasController> {
                               controller.isFullDaySelected.value = false;
                               controller.isSavarSelected.value = true;
                               controller.isSanjSelected.value = false;
+                              controller.isPrvahi.value = false;
+                              controller.isFaral.value = false;
                               controller.getSelectedList(context: context);
                             },
                             child: Row(
@@ -81,7 +83,7 @@ class AddUpvasView extends GetView<AddUpvasController> {
                                 SizedBox(
                                   width: 10,
                                 ),
-                                Text("Savar"),
+                                Text(ArgumentConstant.savar),
                               ],
                             ),
                           ),
@@ -96,6 +98,8 @@ class AddUpvasView extends GetView<AddUpvasController> {
                               controller.isFullDaySelected.value = false;
                               controller.isSavarSelected.value = false;
                               controller.isSanjSelected.value = true;
+                              controller.isPrvahi.value = false;
+                              controller.isFaral.value = false;
                               controller.getSelectedList(context: context);
                             },
                             child: Row(
@@ -109,7 +113,7 @@ class AddUpvasView extends GetView<AddUpvasController> {
                                 SizedBox(
                                   width: 10,
                                 ),
-                                Text("Sanj"),
+                                Text(ArgumentConstant.Sanj),
                               ],
                             ),
                           ),
@@ -123,6 +127,8 @@ class AddUpvasView extends GetView<AddUpvasController> {
                               controller.isFullDaySelected.value = true;
                               controller.isSavarSelected.value = false;
                               controller.isSanjSelected.value = false;
+                              controller.isPrvahi.value = false;
+                              controller.isFaral.value = false;
                               controller.getFullData(context: context);
                             },
                             child: Row(
@@ -136,12 +142,70 @@ class AddUpvasView extends GetView<AddUpvasController> {
                                 SizedBox(
                                   width: 10,
                                 ),
-                                Text("Full Day"),
+                                Text(ArgumentConstant.full),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                      Spacing.height(8),
+                      Row(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              getIt<CustomDialogs>()
+                                  .showCircularDialog(context);
+                              controller.isFullDaySelected.value = false;
+                              controller.isSavarSelected.value = false;
+                              controller.isSanjSelected.value = false;
+                              controller.isPrvahi.value = true;
+                              controller.isFaral.value = false;
+                              controller.getFullData(context: context);
+                            },
+                            child: Row(
+                              children: [
+                                (controller.isPrvahi.isTrue)
+                                    ? Image.asset(
+                                        "assets/icons_image/CheckBox.png",
+                                        height: 20)
+                                    : Image.asset("assets/icons_image/box.png",
+                                        height: 20),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(ArgumentConstant.prvahi),
+                              ],
+                            ),
+                          ),
+                          Spacing.width(8),
+                          InkWell(
+                            onTap: () {
+                              getIt<CustomDialogs>()
+                                  .showCircularDialog(context);
+                              controller.isFullDaySelected.value = false;
+                              controller.isSavarSelected.value = false;
+                              controller.isSanjSelected.value = false;
+                              controller.isPrvahi.value = false;
+                              controller.isFaral.value = true;
+                              controller.getFullData(context: context);
+                            },
+                            child: Row(
+                              children: [
+                                (controller.isFaral.isTrue)
+                                    ? Image.asset(
+                                        "assets/icons_image/CheckBox.png",
+                                        height: 20)
+                                    : Image.asset("assets/icons_image/box.png",
+                                        height: 20),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(ArgumentConstant.faral),
                               ],
                             ),
                           ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -168,8 +232,7 @@ class AddUpvasView extends GetView<AddUpvasController> {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(12))),
                             child: Padding(
-                              padding:
-                                  const EdgeInsets.only(right: 10.0, left: 10),
+                              padding: const EdgeInsets.only(left: 10),
                               child: DropdownButton<String>(
                                 value:
                                     controller.dropdownValue.value.toString(),
@@ -391,14 +454,17 @@ class AddUpvasView extends GetView<AddUpvasController> {
                       ),
                     ),
                   ),
-                )
-              ]),
-              Positioned(
+                ),
+                Padding(
+                  padding: EdgeInsets.all(8.0),
                   child: Image.asset(
-                "assets/icons_image/background.png",
-                color: Colors.black,
-              )),
-            ],
+                    "assets/icons_image/smBack.jpg",
+                    opacity: AlwaysStoppedAnimation(0.5),
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ],
+            ),
           );
         }),
       ),

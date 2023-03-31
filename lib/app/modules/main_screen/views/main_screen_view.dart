@@ -19,16 +19,22 @@ class MainScreenView extends GetWidget<MainScreenController> {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            actions: [
-              IconButton(
-                  onPressed: () {
-                    Get.offAndToNamed(Routes.LOCATION_SCREEN,
-                        arguments: {ArgumentConstant.isFromLocation: true});
-                  },
-                  icon: Icon(
-                    Icons.settings,
-                    color: appTheme.primaryTheme,
-                  ))
+            actions: <Widget>[
+              PopupMenuButton<String>(
+                icon: Icon(
+                  Icons.more_vert_rounded,
+                  color: appTheme.primaryTheme,
+                ),
+                onSelected: choiceAction,
+                itemBuilder: (BuildContext context) {
+                  return controller.choices.map((String choice) {
+                    return PopupMenuItem<String>(
+                      value: choice,
+                      child: Text(choice),
+                    );
+                  }).toList();
+                },
+              )
             ],
             backgroundColor: Colors.white,
             centerTitle: true,
@@ -97,5 +103,15 @@ class MainScreenView extends GetWidget<MainScreenController> {
         ),
       );
     });
+  }
+
+  void choiceAction(String choice) {
+    if (choice == ArgumentConstant.addFullUpvas) {
+      Get.offAndToNamed(Routes.ADD_ALWAYS_UPVASH,
+          arguments: {ArgumentConstant.isFromHome: true});
+    } else if (choice == ArgumentConstant.chooeslocation) {
+      Get.offAndToNamed(Routes.LOCATION_SCREEN,
+          arguments: {ArgumentConstant.isFromLocation: true});
+    }
   }
 }

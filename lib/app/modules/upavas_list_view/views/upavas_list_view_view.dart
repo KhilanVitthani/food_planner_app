@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_planner_app/constants/app_constant.dart';
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -159,7 +160,8 @@ class UpavasListViewView extends GetView<UpavasListViewController> {
                               right: 8.0, left: 8, bottom: 8),
                           child: Row(
                             children: [
-                              Text("Active", style: TextStyle(fontSize: 15)),
+                              Text(ArgumentConstant.totalUpvas,
+                                  style: TextStyle(fontSize: 15)),
                               SizedBox(
                                 width: 5,
                               ),
@@ -170,6 +172,9 @@ class UpavasListViewView extends GetView<UpavasListViewController> {
                               ),
                               Text(
                                 controller.tempList.length.toString(),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.red),
                               ),
                               SizedBox(
                                 width: 10,

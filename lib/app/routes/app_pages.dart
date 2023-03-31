@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import '../../constants/app_constant.dart';
 import '../../constants/sizeConstant.dart';
 import '../../main.dart';
+import '../modules/add_always_upvash/bindings/add_always_upvash_binding.dart';
+import '../modules/add_always_upvash/views/add_always_upvash_view.dart';
 import '../modules/add_upvas/bindings/add_upvas_binding.dart';
 import '../modules/add_upvas/views/add_upvas_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -49,6 +51,11 @@ class AppPages {
       name: _Paths.ADD_UPVAS,
       page: () => const AddUpvasView(),
       binding: AddUpvasBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_ALWAYS_UPVASH,
+      page: () => const AddAlwaysUpvashView(),
+      binding: AddAlwaysUpvashBinding(),
     ),
   ];
 }

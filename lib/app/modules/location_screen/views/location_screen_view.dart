@@ -96,8 +96,9 @@ class LocationScreenView extends GetView<LocationScreenController> {
                                         activeColor: appTheme.primaryTheme,
                                       ),
                                       Text(
-                                        "Kundal",
+                                        ArgumentConstant.kundal,
                                         style: TextStyle(
+                                          fontSize: MySize.getHeight(20),
                                           color: (controller.selectedList[index]
                                                       .location.value ==
                                                   controller.location[0])
@@ -107,6 +108,7 @@ class LocationScreenView extends GetView<LocationScreenController> {
                                       ),
                                     ],
                                   )),
+                              Spacing.width(5),
                               Obx(() => Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
@@ -122,8 +124,9 @@ class LocationScreenView extends GetView<LocationScreenController> {
                                         activeColor: appTheme.primaryTheme,
                                       ),
                                       Text(
-                                        "Vadodara",
+                                        ArgumentConstant.vadodara,
                                         style: TextStyle(
+                                            fontSize: MySize.getHeight(20),
                                             color: (controller
                                                         .selectedList[index]
                                                         .location
@@ -134,6 +137,7 @@ class LocationScreenView extends GetView<LocationScreenController> {
                                       ),
                                     ],
                                   )),
+                              Spacing.width(5),
                               Obx(() => Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
@@ -149,15 +153,15 @@ class LocationScreenView extends GetView<LocationScreenController> {
                                         activeColor: appTheme.primaryTheme,
                                       ),
                                       Text(
-                                        "Gam",
+                                        ArgumentConstant.gam,
                                         style: TextStyle(
-                                            color: (controller
-                                                        .selectedList[index]
-                                                        .location
-                                                        .value ==
-                                                    controller.location[2])
-                                                ? appTheme.primaryTheme
-                                                : Colors.black),
+                                          color: (controller.selectedList[index]
+                                                      .location.value ==
+                                                  controller.location[2])
+                                              ? appTheme.primaryTheme
+                                              : Colors.black,
+                                          fontSize: MySize.getHeight(20),
+                                        ),
                                       ),
                                     ],
                                   )),

@@ -14,6 +14,8 @@ class AddUpvasController extends GetxController {
   RxBool isSavarSelected = true.obs;
   RxBool isSanjSelected = false.obs;
   RxBool isFullDaySelected = false.obs;
+  RxBool isPrvahi = false.obs;
+  RxBool isFaral = false.obs;
   RxBool hasData = false.obs;
   RxList<SelectedModels> getDataList = RxList<SelectedModels>([]);
   RxList<String> list = RxList<String>([]);

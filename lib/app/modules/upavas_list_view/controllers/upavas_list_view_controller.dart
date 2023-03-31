@@ -19,15 +19,16 @@ class UpavasListViewController extends GetxController {
   RxList<SelectedModels> tempList = RxList<SelectedModels>([]);
   RxBool hasData = false.obs;
   RxList<String> dropdownListLocation = <String>[
-    "Kundal",
-    "Vadodara",
-    "Gam",
+    ArgumentConstant.kundal,
+    ArgumentConstant.vadodara,
+    ArgumentConstant.gam,
   ].obs;
   RxList<String> list = <String>[
     ArgumentConstant.savar,
     ArgumentConstant.Sanj,
   ].obs;
-  RxString dropDownLocation = "Kundal".obs;
+  RxString dropDownLocation = ArgumentConstant.kundal.obs;
+
   RxString dropdownValue = ArgumentConstant.savar.obs;
 
   @override
