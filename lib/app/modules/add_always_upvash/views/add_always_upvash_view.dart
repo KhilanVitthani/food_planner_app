@@ -18,28 +18,44 @@ class AddAlwaysUpvashView extends GetView<AddAlwaysUpvashController> {
         return await true;
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text('AddAlwaysUpvashView'),
-          leading: (controller.isFromHome == true)
-              ? InkWell(
-                  onTap: () {
-                    Get.offAndToNamed(Routes.MAIN_SCREEN);
-                  },
-                  child: Icon(
-                    Icons.arrow_back,
-                    color: appTheme.primaryTheme,
-                  ),
-                )
-              : SizedBox(),
-          centerTitle: true,
-        ),
-        body: Center(
-          child: Text(
-            'AddAlwaysUpvashView is working',
-            style: TextStyle(fontSize: 20),
+          appBar: AppBar(
+            title: const Text('AddAlwaysUpvashView'),
+            leading: (controller.isFromHome == true)
+                ? InkWell(
+                    onTap: () {
+                      Get.offAndToNamed(Routes.MAIN_SCREEN);
+                    },
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: appTheme.primaryTheme,
+                    ),
+                  )
+                : SizedBox(),
+            centerTitle: true,
           ),
-        ),
-      ),
+          body: Column(
+            children: [
+              Expanded(
+                child: Container(
+                  child: ListView.builder(
+                    itemCount: controller.selectedList.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(
+                            controller.selectedList[index].name.toString()),
+                        trailing: Checkbox(
+                          value: controller.isSelected.value,
+                          onChanged: (value) {
+                            controller.isSelected.value = value!;
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              )
+            ],
+          )),
     );
   }
 }

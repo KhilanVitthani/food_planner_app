@@ -76,6 +76,7 @@ class LocationScreenView extends GetView<LocationScreenController> {
                           Spacer(),
                           Text(
                             controller.selectedList[index].name.toString(),
+                            style: TextStyle(fontSize: MySize.getHeight(20)),
                           ),
                           Spacer(),
                           Row(
