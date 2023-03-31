@@ -9,6 +9,7 @@ class DBHelper {
   static final int _versoin = 1;
   static final String _tableUser = "user";
   static final String _tableAttendance = "foodAttendance";
+  static final String _tableAlways = "alwaysSanj";
 
   Future<void> initDb() async {
     if (_dbUser != null && _dbAttendance != null) {
@@ -26,9 +27,14 @@ class DBHelper {
             "id INTEGER, "
             "date STRING,time STRING,status INTEGER)",
           );
+          db.execute(
+            "CREATE TABLE $_tableUser("
+            "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+            "name STRING,location STRING)",
+          );
           db
               .execute(
-            "CREATE TABLE $_tableUser("
+            "CREATE TABLE $_tableAlways("
             "id INTEGER PRIMARY KEY AUTOINCREMENT, "
             "name STRING,location STRING)",
           )
@@ -62,6 +68,11 @@ class DBHelper {
   Future<List<Map<String, dynamic>>> queryAttendance() async {
     // print("query function called");
     return await _dbUser!.query(_tableAttendance);
+  }
+
+  Future<List<Map<String, dynamic>>> queryAlways() async {
+    // print("query function called");
+    return await _dbUser!.query(_tableAlways);
   }
 
   delete(
