@@ -59,6 +59,7 @@ class AddAlwaysUpvashView extends GetWidget<AddAlwaysUpvashController> {
                     getIt<DBHelper>().updateIsSelected(
                         id: element.id!, isSelected: element.isSelected);
                   });
+                  box.write(ArgumentConstant.isFirstTime, true);
                   await Get.offAllNamed(Routes.MAIN_SCREEN);
                 },
               ),
@@ -67,6 +68,20 @@ class AddAlwaysUpvashView extends GetWidget<AddAlwaysUpvashController> {
           body: Obx(() {
             return Column(
               children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text("Full always :- "),
+                      Text(controller.selectedList
+                          .where((p0) => p0.isSelected == 1)
+                          .toList()
+                          .length
+                          .toString())
+                    ],
+                  ),
+                ),
                 Expanded(
                   child: Container(
                     child: ListView.builder(

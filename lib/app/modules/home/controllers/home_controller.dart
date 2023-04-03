@@ -13,6 +13,7 @@ import '../../../../models/user.dart';
 class HomeController extends GetxController {
   RxString selectedDate = "".obs;
   RxList<UserModels> locationsSelectedUser = RxList<UserModels>([]);
+  RxList<UserModels> isSelectedUserList = RxList<UserModels>([]);
   RxList<SelectedModels> locationsAttendanceList = RxList<SelectedModels>([]);
   RxList<SelectedModels> tempList = RxList<SelectedModels>([]);
   RxList<UserModels> userList = RxList<UserModels>([]);
@@ -39,6 +40,7 @@ class HomeController extends GetxController {
       getTime();
       await getUserList(context: Get.context!);
       await getSelectedList(context: Get.context!);
+      await alwaysUpavas(context: Get.context!);
     });
     super.onInit();
   }
@@ -52,6 +54,33 @@ class HomeController extends GetxController {
       case DayPeriod.pm:
         dropdownValue.value = list[1];
         break;
+    }
+  }
+
+  alwaysUpavas({required BuildContext context}) {
+    isSelectedUserList.clear();
+    isSelectedUserList.value =
+        userList.where((element) => element.isSelected.value == 1).toList();
+    for (int i = 0; i < userList.length; i++) {
+      if (isSelectedUserList
+          .map((element) => element.id)
+          .toList()
+          .contains(userList[i].id)) {
+        addTask(
+            task: SelectedModels(
+                id: userList[i].id!,
+                status: 2.obs,
+                time: ArgumentConstant.savar.obs,
+                date: selectedDate),
+            context: Get.context!);
+        addTask(
+            task: SelectedModels(
+                id: userList[i].id!,
+                status: 2.obs,
+                time: ArgumentConstant.Sanj.obs,
+                date: selectedDate),
+            context: Get.context!);
+      }
     }
   }
 
@@ -69,6 +98,7 @@ class HomeController extends GetxController {
         locationsAttendanceList.add(attendanceList[i]);
       }
     }
+    print(attendanceList);
     tempList.clear();
     tempList.value =
         locationsAttendanceList.where((p0) => p0.status == 1).toList();
@@ -126,11 +156,9 @@ class HomeController extends GetxController {
     attendanceList.clear();
     tasks.forEach((e) {
       if (!attendanceList.contains(e)) {
-        // print(e);
         attendanceList.add(SelectedModels.fromJson(e));
       }
     });
-    // print(attendanceList.length);
     tempData(context: context);
   }
 
@@ -162,6 +190,7 @@ class HomeController extends GetxController {
       // print(pickedDate);
       selectedDate.value = DateFormat('dd/MM/yyyy').format(pickedDate);
       getSelectedList(context: context);
+      alwaysUpavas(context: context);
     } else {}
   }
 

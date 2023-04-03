@@ -57,7 +57,6 @@ class LocationScreenView extends GetView<LocationScreenController> {
                         await controller.addTask(task: element);
                       }
                     });
-                    box.write(ArgumentConstant.isFirstTime, true);
                     await Get.toNamed(Routes.ADD_ALWAYS_UPVASH);
                     // await Get.offAllNamed(Routes.MAIN_SCREEN);
                   },

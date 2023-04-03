@@ -150,6 +150,8 @@ class HomeView extends GetView<HomeController> {
                                             value!;
                                         controller.getSelectedList(
                                             context: context);
+                                        controller.alwaysUpavas(
+                                            context: context);
                                       },
                                       items: controller.dropdownListLocation
                                           .map<DropdownMenuItem<String>>(
@@ -251,7 +253,8 @@ class HomeView extends GetView<HomeController> {
                                             shrinkWrap: true,
                                             gridDelegate:
                                                 SliverGridDelegateWithFixedCrossAxisCount(
-                                                    crossAxisCount: 5,
+                                                    crossAxisCount: 2,
+                                                    childAspectRatio: 3,
                                                     crossAxisSpacing: 5,
                                                     mainAxisSpacing: 5),
                                             itemCount: controller.userList
@@ -264,116 +267,130 @@ class HomeView extends GetView<HomeController> {
                                             itemBuilder: (context, index) {
                                               return GestureDetector(
                                                 onTap: () {
-                                                  if (controller.attendanceList
-                                                      .isNotEmpty) {
-                                                    int mId = controller
-                                                        .userList
-                                                        .where((element) =>
-                                                            element.location
-                                                                .value ==
-                                                            controller
-                                                                .dropDownLocation
-                                                                .value)
-                                                        .toList()[index]
-                                                        .id!;
-                                                    // print("object");
-                                                    bool isPresent = controller
+                                                  if (controller.userList[index]
+                                                          .isSelected.value !=
+                                                      1) {
+                                                    if (controller
                                                         .attendanceList
-                                                        .any((element) =>
-                                                            element.id == mId);
-                                                    if (isPresent) {
-                                                      SelectedModels
-                                                          selectedData =
+                                                        .isNotEmpty) {
+                                                      int mId = controller
+                                                          .userList
+                                                          .where((element) =>
+                                                              element.location
+                                                                  .value ==
+                                                              controller
+                                                                  .dropDownLocation
+                                                                  .value)
+                                                          .toList()[index]
+                                                          .id!;
+                                                      // print("object");
+                                                      bool isPresent =
                                                           controller
                                                               .attendanceList
-                                                              .where((p0) =>
-                                                                  p0.id == mId)
-                                                              .first;
-                                                      if (selectedData.status ==
-                                                          1) {
-                                                        getIt<DBHelper>()
-                                                            .updateTime(
-                                                                id: selectedData
-                                                                    .id,
-                                                                time:
-                                                                    selectedData
-                                                                        .time,
-                                                                date:
-                                                                    selectedData
-                                                                        .date,
-                                                                status: 2.obs);
-                                                      } else if (selectedData
-                                                              .status ==
-                                                          2) {
-                                                        getIt<DBHelper>()
-                                                            .delete(
-                                                                id: selectedData
-                                                                    .id,
-                                                                time:
-                                                                    selectedData
-                                                                        .time,
-                                                                date:
-                                                                    selectedData
-                                                                        .date);
+                                                              .any((element) =>
+                                                                  element.id ==
+                                                                  mId);
+                                                      if (isPresent) {
+                                                        SelectedModels
+                                                            selectedData =
+                                                            controller
+                                                                .attendanceList
+                                                                .where((p0) =>
+                                                                    p0.id ==
+                                                                    mId)
+                                                                .first;
+                                                        if (selectedData
+                                                                .status ==
+                                                            1) {
+                                                          getIt<DBHelper>()
+                                                              .updateTime(
+                                                                  id:
+                                                                      selectedData
+                                                                          .id,
+                                                                  time:
+                                                                      selectedData
+                                                                          .time,
+                                                                  date:
+                                                                      selectedData
+                                                                          .date,
+                                                                  status:
+                                                                      2.obs);
+                                                        } else if (selectedData
+                                                                .status ==
+                                                            2) {
+                                                          getIt<DBHelper>().delete(
+                                                              id: selectedData
+                                                                  .id,
+                                                              time: selectedData
+                                                                  .time,
+                                                              date: selectedData
+                                                                  .date);
+                                                        } else {
+                                                          getIt<DBHelper>()
+                                                              .update(
+                                                                  id:
+                                                                      selectedData
+                                                                          .id,
+                                                                  status:
+                                                                      1.obs);
+                                                        }
+                                                        controller
+                                                            .getSelectedList(
+                                                                context:
+                                                                    context);
                                                       } else {
-                                                        getIt<DBHelper>()
-                                                            .update(
-                                                                id: selectedData
-                                                                    .id,
-                                                                status: 1.obs);
+                                                        controller.addTask(
+                                                          context: context,
+                                                          task: SelectedModels(
+                                                              id: controller
+                                                                  .userList
+                                                                  .where((element) =>
+                                                                      element
+                                                                          .location
+                                                                          .value ==
+                                                                      controller
+                                                                          .dropDownLocation
+                                                                          .value)
+                                                                  .toList()[
+                                                                      index]
+                                                                  .id!,
+                                                              status: 1.obs,
+                                                              time: controller
+                                                                  .dropdownValue,
+                                                              date: controller
+                                                                  .selectedDate),
+                                                        );
                                                       }
-                                                      controller
-                                                          .getSelectedList(
-                                                              context: context);
                                                     } else {
                                                       controller.addTask(
-                                                        context: context,
-                                                        task: SelectedModels(
-                                                            id: controller
-                                                                .userList
-                                                                .where((element) =>
-                                                                    element
-                                                                        .location
-                                                                        .value ==
-                                                                    controller
-                                                                        .dropDownLocation
-                                                                        .value)
-                                                                .toList()[index]
-                                                                .id!,
-                                                            status: 1.obs,
-                                                            time: controller
-                                                                .dropdownValue,
-                                                            date: controller
-                                                                .selectedDate),
-                                                      );
+                                                          task: SelectedModels(
+                                                              id: controller
+                                                                  .userList
+                                                                  .where((element) =>
+                                                                      element
+                                                                          .location
+                                                                          .value ==
+                                                                      controller
+                                                                          .dropDownLocation
+                                                                          .value)
+                                                                  .toList()[
+                                                                      index]
+                                                                  .id!,
+                                                              status: 1.obs,
+                                                              time: controller
+                                                                  .dropdownValue,
+                                                              date: controller
+                                                                  .selectedDate),
+                                                          context: context);
                                                     }
-                                                  } else {
-                                                    controller.addTask(
-                                                        task: SelectedModels(
-                                                            id: controller
-                                                                .userList
-                                                                .where((element) =>
-                                                                    element
-                                                                        .location
-                                                                        .value ==
-                                                                    controller
-                                                                        .dropDownLocation
-                                                                        .value)
-                                                                .toList()[index]
-                                                                .id!,
-                                                            status: 1.obs,
-                                                            time: controller
-                                                                .dropdownValue,
-                                                            date: controller
-                                                                .selectedDate),
-                                                        context: context);
-                                                  }
+                                                  } else {}
                                                 },
                                                 child: Obx(() {
                                                   return Container(
                                                       decoration: BoxDecoration(
-                                                          shape:
-                                                              BoxShape.circle,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(12),
                                                           color: controller.getColor(
                                                               id: controller
                                                                   .userList

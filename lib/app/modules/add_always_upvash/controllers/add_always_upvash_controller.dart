@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 import '../../../../db/db_helper.dart';
 import '../../../../main.dart';
-import '../../../../models/add_always_upvas_model.dart';
 import '../../../../models/user.dart';
 
 class AddAlwaysUpvashController extends GetxController {
