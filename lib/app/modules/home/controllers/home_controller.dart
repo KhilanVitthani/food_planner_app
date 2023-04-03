@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_planner_app/constants/sizeConstant.dart';
 import 'package:food_planner_app/models/selected_model.dart';
 import 'package:food_planner_app/utilities/progress_dialog_utils.dart';
 import 'package:get/get.dart';
@@ -66,20 +67,39 @@ class HomeController extends GetxController {
           .map((element) => element.id)
           .toList()
           .contains(userList[i].id)) {
-        addTask(
-            task: SelectedModels(
-                id: userList[i].id!,
-                status: 2.obs,
-                time: ArgumentConstant.savar.obs,
-                date: selectedDate),
-            context: Get.context!);
-        addTask(
-            task: SelectedModels(
-                id: userList[i].id!,
-                status: 2.obs,
-                time: ArgumentConstant.Sanj.obs,
-                date: selectedDate),
-            context: Get.context!);
+        if (!isNullEmptyOrFalse(attendanceList)) {
+          if (attendanceList[i].id != userList[i].id) {
+            addTask(
+                task: SelectedModels(
+                    id: userList[i].id!,
+                    status: 2.obs,
+                    time: ArgumentConstant.savar.obs,
+                    date: selectedDate),
+                context: Get.context!);
+            addTask(
+                task: SelectedModels(
+                    id: userList[i].id!,
+                    status: 2.obs,
+                    time: ArgumentConstant.Sanj.obs,
+                    date: selectedDate),
+                context: Get.context!);
+          }
+        } else {
+          addTask(
+              task: SelectedModels(
+                  id: userList[i].id!,
+                  status: 2.obs,
+                  time: ArgumentConstant.savar.obs,
+                  date: selectedDate),
+              context: Get.context!);
+          addTask(
+              task: SelectedModels(
+                  id: userList[i].id!,
+                  status: 2.obs,
+                  time: ArgumentConstant.Sanj.obs,
+                  date: selectedDate),
+              context: Get.context!);
+        }
       }
     }
   }

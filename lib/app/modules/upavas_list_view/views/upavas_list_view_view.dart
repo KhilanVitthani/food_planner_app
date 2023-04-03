@@ -196,15 +196,17 @@ class UpavasListViewView extends GetView<UpavasListViewController> {
                                       physics: NeverScrollableScrollPhysics(),
                                       gridDelegate:
                                           SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisCount: 5,
+                                              crossAxisCount: 2,
                                               crossAxisSpacing: 5,
+                                              childAspectRatio: 3,
                                               mainAxisSpacing: 5),
                                       itemCount: controller.tempList.length,
                                       itemBuilder: (context, index) {
                                         return Obx(() {
                                           return Container(
                                               decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
                                                   color: Colors.red),
                                               child: Center(
                                                   child: Text(
