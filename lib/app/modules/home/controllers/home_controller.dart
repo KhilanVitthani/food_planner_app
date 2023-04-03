@@ -41,7 +41,6 @@ class HomeController extends GetxController {
       getTime();
       await getUserList(context: Get.context!);
       await getSelectedList(context: Get.context!);
-      await alwaysUpavas(context: Get.context!);
     });
     super.onInit();
   }
@@ -180,6 +179,7 @@ class HomeController extends GetxController {
       }
     });
     tempData(context: context);
+    alwaysUpavas(context: context);
   }
 
   datePick({required BuildContext context}) async {
@@ -210,7 +210,7 @@ class HomeController extends GetxController {
       // print(pickedDate);
       selectedDate.value = DateFormat('dd/MM/yyyy').format(pickedDate);
       getSelectedList(context: context);
-      alwaysUpavas(context: context);
+      // alwaysUpavas(context: context);
     } else {}
   }
 
