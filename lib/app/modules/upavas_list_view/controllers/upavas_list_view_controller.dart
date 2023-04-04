@@ -165,9 +165,9 @@ class UpavasListViewController extends GetxController {
           return Theme(
             data: Theme.of(context).copyWith(
               colorScheme: ColorScheme.light(
-                primary: appTheme.SelectedColor, // <-- SEE HERE
-                onPrimary: appTheme.primaryTheme, // <-- SEE HERE
-                onSurface: Color.fromARGB(255, 66, 125, 145), // <-- SEE HERE
+                primary: appTheme.primaryTheme, // <-- SEE HERE
+                onPrimary: Colors.white, // <-- SEE HERE
+                // onSurface: Color.fromARGB(255, 66, 125, 145), // <-- SEE HERE
               ),
               textButtonTheme: TextButtonThemeData(
                 style: TextButton.styleFrom(
@@ -187,6 +187,7 @@ class UpavasListViewController extends GetxController {
       // print(pickedDate);
       selectedDate.value = DateFormat('dd/MM/yyyy').format(pickedDate);
       getSelectedList(context: context);
+      // alwaysUpavas(context: context);
     } else {}
   }
 

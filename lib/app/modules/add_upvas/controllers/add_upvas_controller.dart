@@ -3,6 +3,7 @@ import 'package:food_planner_app/constants/app_constant.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../constants/color_constant.dart';
 import '../../../../db/db_helper.dart';
 import '../../../../main.dart';
 import '../../../../models/selected_model.dart';
@@ -105,15 +106,33 @@ class AddUpvasController extends GetxController {
 
   datePick({required BuildContext context}) async {
     DateTime? pickedDate = await showDatePicker(
+        builder: (context, child) {
+          return Theme(
+            data: Theme.of(context).copyWith(
+              colorScheme: ColorScheme.light(
+                primary: appTheme.primaryTheme, // <-- SEE HERE
+                onPrimary: Colors.white, // <-- SEE HERE
+                // onSurface: Color.fromARGB(255, 66, 125, 145), // <-- SEE HERE
+              ),
+              textButtonTheme: TextButtonThemeData(
+                style: TextButton.styleFrom(
+                  foregroundColor: appTheme.textGrayColor, // button text color
+                ),
+              ),
+            ),
+            child: child!,
+          );
+        },
         context: context,
         initialDate: DateTime.now(),
         firstDate: DateTime(1950),
         lastDate: DateTime(2100));
+
     if (pickedDate != null) {
       // print(pickedDate);
       selectedDate.value = DateFormat('dd/MM/yyyy').format(pickedDate);
-      selectedDataDate.value = DateFormat('dd/MM/yyyy').format(pickedDate);
       getSelectedList(context: context);
+      // alwaysUpavas(context: context);
     } else {}
   }
 
