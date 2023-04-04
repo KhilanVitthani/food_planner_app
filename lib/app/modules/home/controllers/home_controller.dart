@@ -66,7 +66,26 @@ class HomeController extends GetxController {
           .toList()
           .contains(userList[i].id)) {
         if (!isNullEmptyOrFalse(attendanceList)) {
-          if (attendanceList[i].id != userList[i].id) {
+          if (!attendanceList
+              .map((element) => element.id)
+              .toList()
+              .contains(userList[i].id)) {
+            addTask(
+                task: SelectedModels(
+                    id: userList[i].id!,
+                    status: 2.obs,
+                    time: ArgumentConstant.savar.obs,
+                    date: selectedDate),
+                context: Get.context!);
+            addTask(
+                task: SelectedModels(
+                    id: userList[i].id!,
+                    status: 2.obs,
+                    time: ArgumentConstant.Sanj.obs,
+                    date: selectedDate),
+                context: Get.context!);
+          } else {
+            getIt<DBHelper>().deleteUsingId(id: userList[i].id!);
             addTask(
                 task: SelectedModels(
                     id: userList[i].id!,

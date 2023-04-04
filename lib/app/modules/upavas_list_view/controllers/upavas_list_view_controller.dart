@@ -67,7 +67,10 @@ class UpavasListViewController extends GetxController {
           .toList()
           .contains(userList[i].id)) {
         if (!isNullEmptyOrFalse(attendanceList)) {
-          if (attendanceList[i].id != userList[i].id) {
+          if (!attendanceList
+              .map((element) => element.id)
+              .toList()
+              .contains(userList[i].id)) {
             addTask(
                 task: SelectedModels(
                     id: userList[i].id!,
