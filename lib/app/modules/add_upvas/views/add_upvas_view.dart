@@ -38,13 +38,16 @@ class AddUpvasView extends GetView<AddUpvasController> {
                     padding: const EdgeInsets.all(8.0),
                     child: Image.asset(
                       "assets/icons_image/back.png",
+                      color: appTheme.primaryTheme,
                     ),
                   ),
                 ),
               )),
-          title: const Text('Add Upvas', style: TextStyle(color: Colors.black)),
+          title:
+              Text('Add Upvas', style: TextStyle(color: appTheme.primaryTheme)),
           centerTitle: true,
         ),
+        backgroundColor: Colors.white,
         body: Obx(() {
           return SingleChildScrollView(
             child: Column(
