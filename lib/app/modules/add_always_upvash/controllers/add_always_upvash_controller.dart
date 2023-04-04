@@ -12,7 +12,7 @@ class AddAlwaysUpvashController extends GetxController {
   RxBool isFromHome = false.obs;
   RxBool isFromLocation = false.obs;
   RxList<UserModels> selectedList = RxList<UserModels>([]);
-
+  RxBool hasData = false.obs;
   RxList<SelectedModels> attendanceList = RxList<SelectedModels>([]);
 
   @override
@@ -49,6 +49,8 @@ class AddAlwaysUpvashController extends GetxController {
   }
 
   Future<void> getSelectedList({required BuildContext context}) async {
+    hasData.value = false;
+
     List<Map<String, dynamic>> tasks =
         await getIt<DBHelper>().queryAttendance();
     attendanceList.clear();
@@ -57,6 +59,7 @@ class AddAlwaysUpvashController extends GetxController {
         attendanceList.add(SelectedModels.fromJson(e));
       }
     });
+    hasData.value = true;
   }
 
   @override

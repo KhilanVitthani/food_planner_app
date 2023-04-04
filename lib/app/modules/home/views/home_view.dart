@@ -22,7 +22,8 @@ class HomeView extends GetView<HomeController> {
             return Scaffold(
                 body: (controller.hasData.isFalse)
                     ? Center(
-                        child: CircularProgressIndicator(),
+                        child: CircularProgressIndicator(
+                            color: appTheme.primaryTheme),
                       )
                     : Column(
                         children: [

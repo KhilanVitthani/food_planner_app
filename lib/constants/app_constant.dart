@@ -13,6 +13,7 @@ class ArgumentConstant {
   static String totalUpvas = "કુલ ઉપવાસ";
   static String totalJamnar = "કુલ જમનાર";
   static String addFullUpvas = "કાયમી ઉપવાસ ઉમેરો";
+  static String addFullUpvasCount = "કાયમી ઉપવાસ";
   static String prvahi = "પ્રવાહી";
   static String faral = "ફરાળ";
   static String Location = "Location";
