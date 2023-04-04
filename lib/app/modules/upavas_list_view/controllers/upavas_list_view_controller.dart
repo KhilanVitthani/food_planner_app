@@ -156,7 +156,6 @@ class UpavasListViewController extends GetxController {
     });
     // print(attendanceList.length);
     tempData(context: context);
-    alwaysUpavas(context: context);
   }
 
   datePick({required BuildContext context}) async {
@@ -186,7 +185,8 @@ class UpavasListViewController extends GetxController {
     if (pickedDate != null) {
       // print(pickedDate);
       selectedDate.value = DateFormat('dd/MM/yyyy').format(pickedDate);
-      getSelectedList(context: context);
+      await getSelectedList(context: context);
+      await alwaysUpavas(context: context);
     } else {}
   }
 
