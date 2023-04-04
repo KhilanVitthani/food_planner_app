@@ -69,48 +69,58 @@ class AddAlwaysUpvashView extends GetWidget<AddAlwaysUpvashController> {
             ],
           ),
           body: Obx(() {
-            return Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+            return (controller.hasData.isFalse)
+                ? Center(
+                    child:
+                        CircularProgressIndicator(color: appTheme.primaryTheme),
+                  )
+                : Column(
                     children: [
-                      Text("Full always :- "),
-                      Text(controller.selectedList
-                          .where((p0) => p0.isSelected == 1)
-                          .toList()
-                          .length
-                          .toString())
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    child: ListView.builder(
-                      itemCount: controller.selectedList.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text(
-                              controller.selectedList[index].name.toString()),
-                          trailing: Checkbox(
-                            value:
-                                (controller.selectedList[index].isSelected == 0)
-                                    ? false
-                                    : true,
-                            onChanged: (value) {
-                              controller.selectedList[index].isSelected.value =
-                                  (value!) ? 1 : 0;
-                              controller.selectedList.refresh();
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text("${ArgumentConstant.addFullUpvasCount} :- ",
+                                style: TextStyle(fontSize: 16)),
+                            Text(
+                                controller.selectedList
+                                    .where((p0) => p0.isSelected == 1)
+                                    .toList()
+                                    .length
+                                    .toString(),
+                                style: TextStyle(fontSize: 16))
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          child: ListView.builder(
+                            itemCount: controller.selectedList.length,
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                title: Text(controller.selectedList[index].name
+                                    .toString()),
+                                trailing: Checkbox(
+                                  activeColor: appTheme.primaryTheme,
+                                  value: (controller
+                                              .selectedList[index].isSelected ==
+                                          0)
+                                      ? false
+                                      : true,
+                                  onChanged: (value) {
+                                    controller.selectedList[index].isSelected
+                                        .value = (value!) ? 1 : 0;
+                                    controller.selectedList.refresh();
+                                  },
+                                ),
+                              );
                             },
                           ),
-                        );
-                      },
-                    ),
-                  ),
-                )
-              ],
-            );
+                        ),
+                      )
+                    ],
+                  );
           })),
     );
   }
