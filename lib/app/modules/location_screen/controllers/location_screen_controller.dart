@@ -123,14 +123,17 @@ class LocationScreenController extends GetxController {
   RxList<UserModels> userList = RxList<UserModels>([]);
 
   RxBool isFromLocation = false.obs;
+  RxBool isFromHome = false.obs;
   @override
   void onInit() async {
     if (!isNullEmptyOrFalse(Get.arguments)) {
       isFromLocation.value = Get.arguments[ArgumentConstant.isFromLocation];
+      isFromHome.value = Get.arguments[ArgumentConstant.isFromHome];
     }
-    if (isFromLocation.isTrue) {
+    if (isFromLocation.isTrue || isFromHome.isTrue) {
       await getUserList(context: Get.context!);
     }
+
     super.onInit();
   }
 

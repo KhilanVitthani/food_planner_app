@@ -189,39 +189,38 @@ class UpavasListViewView extends GetView<UpavasListViewController> {
                         physics: BouncingScrollPhysics(),
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 5.0),
-                          child:
-                              (!isNullEmptyOrFalse(controller.attendanceList))
-                                  ? GridView.builder(
-                                      shrinkWrap: true,
-                                      physics: NeverScrollableScrollPhysics(),
-                                      gridDelegate:
-                                          SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisCount: 2,
-                                              crossAxisSpacing: 5,
-                                              childAspectRatio: 3,
-                                              mainAxisSpacing: 5),
-                                      itemCount: controller.tempList.length,
-                                      itemBuilder: (context, index) {
-                                        return Obx(() {
-                                          return Container(
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(12),
-                                                  color: Colors.red),
-                                              child: Center(
-                                                  child: Text(
-                                                controller.tempList[index].id
-                                                    .toString(),
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 20),
-                                              )));
-                                        });
-                                      },
-                                    )
-                                  : Center(
-                                      child: Text("No Data Found"),
-                                    ),
+                          child: (!isNullEmptyOrFalse(controller.tempList))
+                              ? GridView.builder(
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 2,
+                                          crossAxisSpacing: 5,
+                                          childAspectRatio: 3,
+                                          mainAxisSpacing: 5),
+                                  itemCount: controller.tempList.length,
+                                  itemBuilder: (context, index) {
+                                    return Obx(() {
+                                      return Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                              color: Colors.red),
+                                          child: Center(
+                                              child: Text(
+                                            controller.tempList[index].id
+                                                .toString(),
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 20),
+                                          )));
+                                    });
+                                  },
+                                )
+                              : Center(
+                                  child: Text("No Data Found"),
+                                ),
                         ),
                       ),
                     )

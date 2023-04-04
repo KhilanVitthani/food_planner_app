@@ -267,8 +267,16 @@ class HomeView extends GetView<HomeController> {
                                             itemBuilder: (context, index) {
                                               return GestureDetector(
                                                 onTap: () {
-                                                  if (controller.userList[index]
-                                                          .isSelected.value !=
+                                                  if (controller.userList
+                                                          .where((element) =>
+                                                              element.location
+                                                                  .value ==
+                                                              controller
+                                                                  .dropDownLocation
+                                                                  .value)
+                                                          .toList()[index]
+                                                          .isSelected
+                                                          .value !=
                                                       1) {
                                                     if (controller
                                                         .attendanceList
@@ -403,37 +411,7 @@ class HomeView extends GetView<HomeController> {
                                                                           .value)
                                                                   .toList()[
                                                                       index]
-                                                                  .id!)
-                                                          // color: (controller.userList
-                                                          //             .where((element) =>
-                                                          //                 element
-                                                          //                     .location
-                                                          //                     .value ==
-                                                          //                 controller
-                                                          //                     .dropDownLocation
-                                                          //                     .value)
-                                                          //             .toList()[index]
-                                                          //             .isSelected
-                                                          //             .value ==
-                                                          //         0)
-                                                          //     ? appTheme.unSelectedColor
-                                                          //     : (controller.userList
-                                                          //                 .where((element) =>
-                                                          //                     element
-                                                          //                         .location
-                                                          //                         .value ==
-                                                          //                     controller
-                                                          //                         .dropDownLocation
-                                                          //                         .value)
-                                                          //                 .toList()[
-                                                          //                     index]
-                                                          //                 .isSelected
-                                                          //                 .value ==
-                                                          //             1)
-                                                          //         ? appTheme
-                                                          //             .SelectedColor
-                                                          //         : Colors.red,
-                                                          ),
+                                                                  .id!)),
                                                       child: Center(
                                                           child: Text(
                                                         controller.userList

@@ -107,11 +107,15 @@ class MainScreenView extends GetWidget<MainScreenController> {
 
   void choiceAction(String choice) {
     if (choice == ArgumentConstant.addFullUpvas) {
-      Get.offAndToNamed(Routes.ADD_ALWAYS_UPVASH,
-          arguments: {ArgumentConstant.isFromHome: true});
+      Get.offAndToNamed(Routes.ADD_ALWAYS_UPVASH, arguments: {
+        ArgumentConstant.isFromHome: true,
+        ArgumentConstant.isFromLocation: false
+      });
     } else if (choice == ArgumentConstant.chooeslocation) {
-      Get.offAndToNamed(Routes.LOCATION_SCREEN,
-          arguments: {ArgumentConstant.isFromLocation: true});
+      Get.offAndToNamed(Routes.LOCATION_SCREEN, arguments: {
+        ArgumentConstant.isFromHome: true,
+        ArgumentConstant.isFromLocation: false,
+      });
     }
   }
 }

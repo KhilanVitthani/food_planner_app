@@ -19,7 +19,7 @@ class LocationScreenView extends GetView<LocationScreenController> {
     return Obx(() {
       return WillPopScope(
         onWillPop: () async {
-          if (controller.isFromLocation.isTrue) {
+          if (controller.isFromHome.isTrue) {
             Get.offAndToNamed(Routes.MAIN_SCREEN);
           }
           return await true;
@@ -28,7 +28,7 @@ class LocationScreenView extends GetView<LocationScreenController> {
             appBar: AppBar(
               backgroundColor: Colors.white,
               elevation: 0,
-              leading: (controller.isFromLocation == true)
+              leading: (controller.isFromHome.isTrue)
                   ? InkWell(
                       onTap: () {
                         Get.offAndToNamed(Routes.MAIN_SCREEN);
@@ -50,15 +50,21 @@ class LocationScreenView extends GetView<LocationScreenController> {
                   ),
                   onPressed: () async {
                     controller.selectedList.forEach((element) async {
-                      if (controller.isFromLocation.isTrue) {
+                      if (controller.isFromLocation.isTrue ||
+                          controller.isFromHome.isTrue) {
                         getIt<DBHelper>().updateLocation(
                             id: element.id!, location: element.location);
                       } else {
                         await controller.addTask(task: element);
                       }
                     });
-                    await Get.toNamed(Routes.ADD_ALWAYS_UPVASH);
-                    // await Get.offAllNamed(Routes.MAIN_SCREEN);
+                    await (controller.isFromHome.isTrue)
+                        ? Get.offAndToNamed(Routes.MAIN_SCREEN)
+                        : Get.offAndToNamed(Routes.ADD_ALWAYS_UPVASH,
+                            arguments: {
+                                ArgumentConstant.isFromLocation: true,
+                                ArgumentConstant.isFromHome: false,
+                              });
                   },
                 ),
               ],

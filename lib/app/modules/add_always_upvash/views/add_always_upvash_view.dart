@@ -19,32 +19,34 @@ class AddAlwaysUpvashView extends GetWidget<AddAlwaysUpvashController> {
         if (controller.isFromHome.isTrue) {
           Get.offAndToNamed(Routes.MAIN_SCREEN);
         }
+        if (controller.isFromLocation.isTrue) {
+          Get.offAndToNamed(Routes.LOCATION_SCREEN);
+        }
         return await true;
       },
       child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.white,
             elevation: 0,
-            leading: InkWell(
-              onTap: () {
-                Get.back();
-              },
-              child: Icon(
-                Icons.arrow_back,
-                color: appTheme.primaryTheme,
-              ),
-            ),
-            // leading: (controller.isFromLocation == true)
-            //     ? InkWell(
-            //   onTap: () {
-            //     Get.offAndToNamed(Routes.MAIN_SCREEN);
-            //   },
-            //   child: Icon(
-            //     Icons.arrow_back,
-            //     color: appTheme.primaryTheme,
-            //   ),
-            // )
-            //     : SizedBox(),
+            leading: (controller.isFromLocation.isTrue ||
+                    controller.isFromHome.isTrue)
+                ? InkWell(
+                    onTap: () {
+                      if (controller.isFromHome.isTrue) {
+                        Get.offAndToNamed(Routes.MAIN_SCREEN);
+                      } else {
+                        Get.offAndToNamed(Routes.LOCATION_SCREEN, arguments: {
+                          ArgumentConstant.isFromLocation: true,
+                          ArgumentConstant.isFromHome: false,
+                        });
+                      }
+                    },
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: appTheme.primaryTheme,
+                    ),
+                  )
+                : SizedBox(),
             title: Text(ArgumentConstant.addFullUpvas,
                 style: TextStyle(color: Colors.black)),
             centerTitle: true,
@@ -58,6 +60,7 @@ class AddAlwaysUpvashView extends GetWidget<AddAlwaysUpvashController> {
                   controller.selectedList.forEach((element) async {
                     getIt<DBHelper>().updateIsSelected(
                         id: element.id!, isSelected: element.isSelected);
+                    controller.deleteAttendance(userData: element);
                   });
                   box.write(ArgumentConstant.isFirstTime, true);
                   await Get.offAllNamed(Routes.MAIN_SCREEN);

@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../constants/app_constant.dart';
 import '../../../../constants/color_constant.dart';
+import '../../../../constants/sizeConstant.dart';
 import '../../../../db/db_helper.dart';
 import '../../../../main.dart';
 import '../../../../models/selected_model.dart';
@@ -28,6 +29,7 @@ class UpavasListViewController extends GetxController {
     ArgumentConstant.Sanj,
   ].obs;
   RxString dropDownLocation = ArgumentConstant.kundal.obs;
+  RxList<UserModels> isSelectedUserList = RxList<UserModels>([]);
 
   RxString dropdownValue = ArgumentConstant.savar.obs;
 
@@ -53,6 +55,59 @@ class UpavasListViewController extends GetxController {
         dropdownValue.value = list[1];
         break;
     }
+  }
+
+  alwaysUpavas({required BuildContext context}) {
+    isSelectedUserList.clear();
+    isSelectedUserList.value =
+        userList.where((element) => element.isSelected.value == 1).toList();
+    for (int i = 0; i < userList.length; i++) {
+      if (isSelectedUserList
+          .map((element) => element.id)
+          .toList()
+          .contains(userList[i].id)) {
+        if (!isNullEmptyOrFalse(attendanceList)) {
+          if (attendanceList[i].id != userList[i].id) {
+            addTask(
+                task: SelectedModels(
+                    id: userList[i].id!,
+                    status: 2.obs,
+                    time: ArgumentConstant.savar.obs,
+                    date: selectedDate),
+                context: Get.context!);
+            addTask(
+                task: SelectedModels(
+                    id: userList[i].id!,
+                    status: 2.obs,
+                    time: ArgumentConstant.Sanj.obs,
+                    date: selectedDate),
+                context: Get.context!);
+          }
+        } else {
+          addTask(
+              task: SelectedModels(
+                  id: userList[i].id!,
+                  status: 2.obs,
+                  time: ArgumentConstant.savar.obs,
+                  date: selectedDate),
+              context: Get.context!);
+          addTask(
+              task: SelectedModels(
+                  id: userList[i].id!,
+                  status: 2.obs,
+                  time: ArgumentConstant.Sanj.obs,
+                  date: selectedDate),
+              context: Get.context!);
+        }
+      }
+    }
+  }
+
+  addTask({SelectedModels? task, required BuildContext context}) async {
+    await getIt<DBHelper>().insertAttendanceTable(task).then((value) {
+      return 1;
+    });
+    getSelectedList(context: context);
   }
 
   tempData({required BuildContext context}) {
@@ -101,6 +156,7 @@ class UpavasListViewController extends GetxController {
     });
     // print(attendanceList.length);
     tempData(context: context);
+    alwaysUpavas(context: context);
   }
 
   datePick({required BuildContext context}) async {

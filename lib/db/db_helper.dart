@@ -82,6 +82,11 @@ class DBHelper {
         whereArgs: [id, time.value, date.value]);
   }
 
+  deleteUsingId({required int id}) async {
+    return await _dbUser!
+        .delete(_tableAttendance, where: 'id=?', whereArgs: [id]);
+  }
+
   Future<List<Map<String, dynamic>>> getDataFromDate(
       {required String date, required String time}) async {
     return await _dbUser!.rawQuery(
