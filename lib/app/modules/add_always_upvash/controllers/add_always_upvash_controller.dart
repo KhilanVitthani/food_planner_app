@@ -22,14 +22,18 @@ class AddAlwaysUpvashController extends GetxController {
       isFromLocation.value = Get.arguments[ArgumentConstant.isFromLocation];
     }
     await getUserList(context: Get.context!);
-
     super.onInit();
   }
 
   deleteAttendance({required UserModels userData}) {
     if (!isNullEmptyOrFalse(attendanceList)) {
       if (attendanceList.any((element) => element.id == userData.id)) {
-        getIt<DBHelper>().deleteUsingId(id: userData.id!);
+        SelectedModels selectedData = attendanceList
+            .where((p0) =>
+                (p0.id == userData.id) &&
+                (p0.status == 2 && userData.isSelected == 0))
+            .first;
+        getIt<DBHelper>().deleteUsingId(id: selectedData.id);
       }
     }
   }
